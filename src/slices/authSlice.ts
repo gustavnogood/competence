@@ -119,7 +119,7 @@ const authSlice = createSlice({
         state.status = "loading";
         state.error = null;
       })
-      .addCase(logout.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state) => {
         state.status = "idle";
         state.basicUserInfo = null;
       })

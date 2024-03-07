@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Button } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { getUser, logout } from "../slices/authSlice";
