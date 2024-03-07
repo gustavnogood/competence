@@ -3,10 +3,10 @@ name: Azure Static Web Apps CI/CD
 on:
     push:
         branches:
-            - main
+            - master
     pull_request:
         branches:
-            - main
+            - master
 
 env:
     AZURE_SWA_NAME: "swa-competence-test" # set this to your swa name on Azure
