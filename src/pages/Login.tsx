@@ -9,7 +9,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <div onClick={initializeSignIn}>Sign in</div>
+      <button onClick={initializeSignIn}>Sign in</button>
     </>
   );
 };
