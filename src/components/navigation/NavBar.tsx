@@ -92,7 +92,7 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
               </IconButton>
             </Toolbar>
           </AppBar>
-          <Box display="flex" flexDirection="column" py={3} width="100%">
+          <Box display="flex" flexDirection="column" py={4} width="100%">
             {mappedItems}
           </Box>
           <LogOutButton />

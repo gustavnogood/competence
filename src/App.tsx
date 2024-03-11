@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import DashBoard from './pages/DashBoard';
 import Profile from './pages/Profile';
 import Roadmap from './pages/Roadmap';
+import LoginPage from './pages/Login';
 import './App.css';
 // import NavBarLayout from './components/navigation/NavBarLayout';
 import Grid from "@mui/material/Grid";
@@ -40,6 +41,7 @@ function App({ pca }: AppProps) {
 function Pages() {
   return (
     <Routes>
+      <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<DashBoard />} />
       <Route path="/profile" element={<Profile />} />
