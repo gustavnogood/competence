@@ -1,21 +1,29 @@
 import { Button } from '@mui/material';
-import React from 'react';
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 
-const Roadmap: React.FC = () => {
+export function Roadmap() {
   
     return (
-      <div>
-        <h1>Roadmap</h1>
-        <p>A roadmap wil show here</p>
+      <>
+      <AuthenticatedTemplate>
+        <div>
+          <h1>Roadmap</h1>
+          <p>A roadmap wil show here</p>
         <Button variant="contained" color="primary">
           Primary
         </Button>
         <Button variant="contained" color="secondary">
           Secondary
         </Button>
-
-      </div>
-      
+        </div>
+      </AuthenticatedTemplate>
+      <UnauthenticatedTemplate>
+        <div>
+          <h1>Roadmap</h1>
+          <p>You need to login to see the secret message</p>
+        </div>
+      </UnauthenticatedTemplate>
+      </>
     );
   };
   export default Roadmap;

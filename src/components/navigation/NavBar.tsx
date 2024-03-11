@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../App.css";
+import LogOutButton from "../LogOutButton";
 import { Close, Menu } from '@mui/icons-material';
 import {
   AppBar,
@@ -94,6 +95,7 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
           <Box display="flex" flexDirection="column" py={3} width="100%">
             {mappedItems}
           </Box>
+          <LogOutButton />
         </Dialog>
       </Hidden>
     </>
