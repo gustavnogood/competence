@@ -7,13 +7,13 @@ import { UnauthenticatedTemplate } from '@azure/msal-react';
 function App() {
   return (
     <>
-          {/* <AuthenticatedTemplate>  */}
+          <AuthenticatedTemplate> 
         <NavBarLayout/>
         <Home />
-          {/* </AuthenticatedTemplate>
+          </AuthenticatedTemplate>
         <UnauthenticatedTemplate> 
           <Login />
-        </UnauthenticatedTemplate>  */}
+        </UnauthenticatedTemplate> 
         
       
     </>
