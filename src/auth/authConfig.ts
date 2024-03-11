@@ -9,9 +9,9 @@ import { LogLevel } from "@azure/msal-browser";
 export const msalConfig = {
     auth: {
         clientId: "8dd0c61f-09c3-448b-81a2-26a25935ab3b",
-        authority: "https://login.microsoftonline.com/e719b1aa-cadf-4f70-a3fd-6a97e57b4e8b",
-        redirectUri: "/login",
-        postLogoutRedirectUri: "/",
+        authority: "https://login.microsoftonline.com/e719b1aa-cadf-4f70-a3fd-6a97e57b4e8b/oauth2/v2.0/authorize", //har testat att byta och ser om det är problemet
+        redirectUri: "/",
+        postLogoutRedirectUri: "/login",
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
