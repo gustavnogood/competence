@@ -17,13 +17,14 @@ export function Roadmap() {
           Secondary
         </Button>
         </div>
-        <MovieList />
+        
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <div>
           <h1>Roadmap</h1>
           <p>You need to login to see the secret message</p>
         </div>
+        <MovieList />
       </UnauthenticatedTemplate>
       </>
     );
