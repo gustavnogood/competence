@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
+import MovieList from '../components/MovieList/MovieList';
 
 export function Roadmap() {
   
@@ -16,6 +17,7 @@ export function Roadmap() {
           Secondary
         </Button>
         </div>
+        <MovieList />
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <div>

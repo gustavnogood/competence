@@ -1,0 +1,66 @@
+.WelcomeTitle {
+    text-align: center;
+}
+
+.Container {
+    margin: auto;
+    width: 80%;
+}
+
+.Loading {
+    height: 2em;
+    display: block;
+    margin: 5em auto 5em auto;
+    animation: rotation 2.5s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
+.MovieList {
+    width: 100%;
+}
+
+.InputWrapper {
+    display: block;
+    width: 100%;
+}
+
+.MovieInput {
+    width: 30%;
+    display: block;
+    margin: 2em auto;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+
+.MovieTextArea {
+    width: 30%;
+    display: block;
+    margin: 2em auto;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    min-height: 6em;
+    resize: vertical;
+
+}
+
+.MovieSubmit {
+    display: block;
+    margin: 2em auto;
+    border: #007FFF;
+    background-color: #007FFF;
+    width: 30%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+
+.MovieSubmit:hover {
+    background-color: #409fff;
+}
