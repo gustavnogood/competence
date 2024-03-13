@@ -22,7 +22,7 @@ export const NavBarLayout = () => {
             <Box flexGrow={1}>
             <Box display="flex" alignItems="center" gap={0.5} sx={{ cursor: 'pointer' }}>
                 <img width="54px" height="54px" src={logoImg} alt="logo" />
-                <Typography variant="h5" sx={{ width: 'fit-content' }}>Omega Point</Typography>
+                <Typography variant="h5" sx={{ width: 'fit-content' }}>Competence</Typography>
             </Box>
             </Box>
             

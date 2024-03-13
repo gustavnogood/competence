@@ -56,34 +56,30 @@ export const MovieList = (): React.ReactElement => {
 
 	return (
 		<div className={styles.Container}>
-			{
-				<div className={styles.MovieList}>
-					<h1 className={styles.WelcomeTitle}>
-						Welcome to movie list
-					</h1>
-					<>
-						{isLoadingGet ? (
-							<img
-								className={styles.Loading}
-								alt="loading"
-								src={require("../resources/loading.png")}
-							/>
-						) : (
-							<>
-								{movies.map((movie) => (
-									<div
-										className={styles.MovieWrapper}
-										key={`${movie.id}-key`}
-									>
-										<h3>{movie.name}</h3>
-										<p>{movie.description}</p>
-									</div>
-								))}
-							</>
-						)}
-					</>
-				</div>
-			}
+            <div className={styles.MovieList}>
+                <h1 className={styles.WelcomeTitle}>
+                Welcome to movie list
+                </h1>
+                {isLoadingGet ? (
+            <img
+            className={styles.Loading}
+            alt="loading"
+            src="loading.png"
+            />
+            ) : (
+            <>
+            {Array.isArray(movies) && movies.map((movie) => (
+                <div
+                    className={styles.MovieWrapper}
+                    key={`${movie.id}-key`}
+                >
+                    <h3>{movie.name}</h3>
+                    <p>{movie.description}</p>
+                </div>
+            ))}
+        </>
+    )}
+</div>
 
 			<hr />
 			<div className={styles.InputWrapper}>
@@ -91,7 +87,7 @@ export const MovieList = (): React.ReactElement => {
 					<img
 						className={styles.Loading}
 						alt="loading"
-						src={require("../resources/loading.png")}
+						src="loading.png"
 					/>
 				) : (
 					<>
