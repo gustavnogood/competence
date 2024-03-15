@@ -21,8 +21,9 @@ interface Role {
 export const RoadmapList = (): React.ReactElement => {
 	const api = "/api/roadmap";
 
-	const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
-	const [isLoadingGet, setIsLoadingGet] = useState(false);
+    const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
+    const [isLoadingGet, setIsLoadingGet] = useState(false);
+    const [selectedRoadmapId, setSelectedRoadmapId] = useState<string | null>(null);
 
 	useEffect(() => {
 		getRoadmaps();
@@ -37,51 +38,48 @@ export const RoadmapList = (): React.ReactElement => {
 	};
 
 	const handleRoadmapClick = (id: string) => {
-		
-		console.log("Roadmap clicked:", id);
-	};
+        setSelectedRoadmapId(id);
+    };
 
 	const handleRoleClick = (id: string) => {
-		
 		console.log("Role clicked:", id);
 	};
 
 	return (
-		<div className={styles.Container}>
-			<div className={styles.MovieList}>
-				<h1 className={styles.WelcomeTitle}>Welcome to your roadmap!</h1>
-				{isLoadingGet ? (
-					<img
-						className={styles.Loading}
-						alt="loading"
-						src={loadingImg}
-					/>
-				) : (
-					<>
-						{roadmaps.map((roadmap) => (
-							<div className={styles.RoadmapWrapper} key={roadmap.id}>
-								<Button
-									className={styles.RoadmapButton}
-									onClick={() => handleRoadmapClick(roadmap.id)}
-								>
-									{roadmap.id}
-								</Button>
-								{roadmap.roles.map((role) => (
-									<Button
-										className={styles.RoleButton}
-										key={role.roleId}
-										onClick={() => handleRoleClick(role.roleId)}
-									>
-										{role.name}
-									</Button>
-								))}
-							</div>
-						))}
-					</>
-				)}
-			</div>
-		</div>
-	);
+        <div className={styles.Container}>
+            <div className={styles.MovieList}>
+                <h1 className={styles.WelcomeTitle}>Welcome to your roadmap!</h1>
+                {isLoadingGet ? (
+                    <img
+                        className={styles.Loading}
+                        alt="loading"
+                        src={loadingImg}
+                    />
+                ) : (
+                    <>
+                        {roadmaps.map((roadmap) => (
+                            <div className={styles.RoadmapWrapper} key={roadmap.id}>
+                                <Button
+                                    onClick={() => handleRoadmapClick(roadmap.id)}
+                                >
+                                    {roadmap.name}
+                                </Button>
+                                
+                                {roadmap.id === selectedRoadmapId && roadmap.roles.map((role) => (
+                                    <Button
+                                        key={role.roleId}
+                                        onClick={() => handleRoleClick(role.roleId)}
+                                    >
+                                        {role.name}
+                                    </Button>
+                                ))}
+                            </div>
+                        ))}
+                    </>
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default RoadmapList;
