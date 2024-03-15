@@ -61,6 +61,7 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
 
   return (
     <>
+      <LogOutButton />
       <Hidden smDown>
         <Box display="flex" gap={2}>
           {mappedItems}
