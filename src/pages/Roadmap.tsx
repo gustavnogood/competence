@@ -1,24 +1,13 @@
-import { Button } from '@mui/material';
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
-import MovieList from '../components/MovieList/MovieList';
 import LoginPage from './Login';
+import RoadmapList from '../components/roadmapList/RoadmapList';
 
 export function Roadmap() {
   
     return (
       <>
       <AuthenticatedTemplate>
-        <div>
-          <h1>Roadmap</h1>
-          <p>A roadmap wil show here</p>
-        <Button variant="contained" color="primary">
-          Primary
-        </Button>
-        <Button variant="contained" color="secondary">
-          Secondary
-        </Button>
-        </div>
-        <MovieList />
+        <RoadmapList />
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <div>
