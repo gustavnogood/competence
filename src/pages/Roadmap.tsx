@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 import MovieList from '../components/MovieList/MovieList';
+import LoginPage from './Login';
 
 export function Roadmap() {
   
@@ -23,6 +24,7 @@ export function Roadmap() {
         <div>
           <h1>Roadmap</h1>
           <p>You need to login to see the secret message</p>
+          <LoginPage />
         </div>
         
       </UnauthenticatedTemplate>

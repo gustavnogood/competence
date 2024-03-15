@@ -1,5 +1,5 @@
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
-
+import LoginPage from "./Login";
 export function Profile() {
   
     return (
@@ -14,6 +14,7 @@ export function Profile() {
         <div>
           <h1>Profile</h1>
           <p>You need to login to see the secret message</p>
+          <LoginPage />
         </div>
       </UnauthenticatedTemplate>
       </>
