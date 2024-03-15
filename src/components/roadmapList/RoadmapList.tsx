@@ -60,6 +60,7 @@ export const RoadmapList = (): React.ReactElement => {
                         {roadmaps.map((roadmap) => (
                             <div className={styles.RoadmapWrapper} key={roadmap.id}>
                                 <Button
+                                    className={styles.RoadmapButton}
                                     onClick={() => handleRoadmapClick(roadmap.id)}
                                 >
                                     {roadmap.name}
@@ -67,6 +68,7 @@ export const RoadmapList = (): React.ReactElement => {
                                 
                                 {roadmap.id === selectedRoadmapId && roadmap.roles.map((role) => (
                                     <Button
+                                        className={styles.RoleButton}
                                         key={role.roleId}
                                         onClick={() => handleRoleClick(role.roleId)}
                                     >
