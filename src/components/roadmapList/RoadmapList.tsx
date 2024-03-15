@@ -14,76 +14,131 @@ interface Role {
     roleId: string;
     name: string;
     description: string;
+    skills: Skill[];
 }
 
-export const RoadmapList = (): React.ReactElement => {
-const api = "/api/roadmap";
+interface Skill {
+    skillId: string;
+    name: string;
+    description: string;
+}
 
-const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
-const [isLoadingGet, setIsLoadingGet] = useState(false);
-const [selectedRoadmapId, setSelectedRoadmapId] = useState<string | null>(null);
+const RoadmapList = (): React.ReactElement => {
+    const api = "/api/roadmap";
 
-useEffect(() => {
-    getRoadmaps();
-}, []);
+    const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [selectedRoadmapId, setSelectedRoadmapId] = useState<string | null>(null);
+    const [selectedRoleId, setSelectedRoleId] = useState<string | null>(null);
+    const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null);
+    const [description, setDescription] = useState<string>("");
 
-const getRoadmaps = () => {
-    setIsLoadingGet(true);
-    axios.get(api).then((res) => {
-    setRoadmaps(res.data);
-    setIsLoadingGet(false);
-    });
-};
+    useEffect(() => {
+        getRoadmaps();
+    }, []);
 
-const handleRoadmapClick = (id: string) => {
-    if (selectedRoadmapId === id) {
-        setSelectedRoadmapId(null);
-    } else {
-        setSelectedRoadmapId(id);
-    }
-};
+    const getRoadmaps = () => {
+        setIsLoading(true);
+        axios.get(api)
+            .then((res) => {
+                setRoadmaps(res.data);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching roadmaps:", error);
+                setIsLoading(false);
+            });
+    };
 
-const handleRoleClick = (id: string) => {
-    console.log("Role clicked:", id);
-};
+    const handleRoadmapClick = (id: string, description: string) => {
+        if (selectedRoadmapId === id) {
+            setSelectedRoadmapId(null);
+            setDescription("");
+        } else {
+            setSelectedRoadmapId(id);
+            setDescription(description);
+            setSelectedRoleId(null);
+            setSelectedSkillId(null);
+        }
+    };
 
-return (
-    <div className={styles.Container}>
-    <div className={styles.RoadmapList}>
-        <h1 className={styles.WelcomeTitle}>Welcome to your roadmap!</h1>
-        {isLoadingGet ? (
-        <img className={styles.Loading} alt="loading" src={loadingImg} />
-        ) : (
-        <div className={styles.RoadmapsContainer}>
-            {roadmaps.map((roadmap) => (
-            <div className={styles.RoadmapWrapper} key={roadmap.id}>
-                <button
-                className={styles.RoadmapButton}
-                onClick={() => handleRoadmapClick(roadmap.id)}
-                >
-                {roadmap.name}
-                </button>
+    const handleRoleClick = (id: string, description: string) => {
+        if (selectedRoleId === id) {
+            setSelectedRoleId(null);
+            setDescription("");
+        } else {
+            setSelectedRoleId(id);
+            setDescription(description);
+            setSelectedSkillId(null);
+        }
+    };
 
-                {selectedRoadmapId === roadmap.id && (
-                <div className={styles.RolesContainer}>
-                    {roadmap.roles.map((role) => (
-                    <button
-                        className={styles.RoleButton}
-                        key={role.roleId}
-                        onClick={() => handleRoleClick(role.roleId)}
-                    >
-                        {role.name}
-                    </button>
-                    ))}
-                </div>
+    const handleSkillClick = (id: string, description: string) => {
+        if (selectedSkillId === id) {
+            setSelectedSkillId(null);
+            setDescription("");
+        } else {
+            setSelectedSkillId(id);
+            setDescription(description);
+        }
+    };
+
+    return (
+        <div className={styles.Container}>
+            <div className={styles.RoadmapList}>
+                <h1 className={styles.WelcomeTitle}>Welcome to your roadmap!</h1>
+                {isLoading ? (
+                    <img className={styles.Loading} alt="loading" src={loadingImg} />
+                ) : (
+                    <div className={styles.RoadmapsContainer}>
+                        {roadmaps.map((roadmap) => (
+                            <div className={styles.RoadmapWrapper} key={roadmap.id}>
+                                <button
+                                    className={styles.RoadmapButton}
+                                    onClick={() => handleRoadmapClick(roadmap.id, roadmap.description)}
+                                >
+                                    {roadmap.name}
+                                </button>
+                                {selectedRoadmapId === roadmap.id && (
+                                    <div className={styles.RolesContainer}>
+                                        {roadmap.roles.map((role) => (
+                                            <div key={role.roleId}>
+                                                <button
+                                                    className={`${styles.RoleButton} ${selectedRoleId === role.roleId && styles.Selected}`}
+                                                    onClick={() => handleRoleClick(role.roleId, role.description)}
+                                                >
+                                                    {role.name}
+                                                </button>
+                                                {selectedRoleId === role.roleId && (
+                                                    <div className={styles.SkillsContainer}>
+                                                        {role.skills.map((skill) => (
+                                                            <button
+                                                                className={`${styles.SkillButton} ${selectedSkillId === skill.skillId && styles.Selected}`}
+                                                                key={skill.skillId}
+                                                                onClick={() => handleSkillClick(skill.skillId, skill.description)}
+                                                            >
+                                                                {skill.name}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 )}
             </div>
-            ))}
+            {description && (
+                <div className={styles.DescriptionContainer}>
+                    <h2 className={styles.DescriptionTitle}>Description</h2>
+                    <p className={styles.Description}>{description}</p>
+                </div>
+            )}
         </div>
-        )}
-    </div>
-    </div>
-);
+    );
 };
 
 export default RoadmapList;
