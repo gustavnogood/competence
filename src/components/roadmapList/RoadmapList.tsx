@@ -47,7 +47,7 @@ export const RoadmapList = (): React.ReactElement => {
 
 	return (
         <div className={styles.Container}>
-            <div className={styles.MovieList}>
+            <div className={styles.RoadmapList}>
                 <h1 className={styles.WelcomeTitle}>Welcome to your roadmap!</h1>
                 {isLoadingGet ? (
                     <img

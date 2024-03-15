@@ -64,3 +64,42 @@
 .RoadmapSubmit:hover {
     background-color: #409fff;
 }
+
+.RoadmapWrapper {
+    margin-bottom: 1rem; /* Add some margin between roadmap items */
+  }
+  
+  .RoadmapButton {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    color: #fff; /* Text color for roadmap button */
+  }
+  
+  .RoadmapButton:hover {
+    border-color: #646cff;
+  }
+  
+  .RoleButton {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    color: #fff; /* Text color for role button */
+    margin-left: 0.5rem; /* Add some margin between role buttons */
+  }
+  
+  .RoleButton:hover {
+    border-color: #646cff;
+  }
