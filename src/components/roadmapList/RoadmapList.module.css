@@ -16,12 +16,12 @@
 
 @keyframes rotation {
     from {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
     }
     to {
-      transform: rotate(359deg);
+    transform: rotate(359deg);
     }
-  }
+}
 
 .RoadmapList {
     width: 100%;
@@ -67,9 +67,15 @@
 
 .RoadmapWrapper {
     margin-bottom: 1rem; /* Add some margin between roadmap items */
-  }
-  
-  .RoadmapButton {
+}
+
+.RoadmapsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start of the container */
+}
+
+.RoadmapButton {
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
@@ -80,13 +86,17 @@
     cursor: pointer;
     transition: border-color 0.25s;
     color: #fff; /* Text color for roadmap button */
-  }
-  
-  .RoadmapButton:hover {
+}
+
+.RoadmapButton:hover {
     border-color: #646cff;
-  }
-  
-  .RoleButton {
+}
+
+.RolesContainer {
+    margin-top: 0.5rem; /* Add margin between roadmap button and roles */
+}
+
+.RoleButton {
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
@@ -98,8 +108,11 @@
     transition: border-color 0.25s;
     color: #fff; /* Text color for role button */
     margin-left: 0.5rem; /* Add some margin between role buttons */
-  }
-  
-  .RoleButton:hover {
+}
+
+.RoleButton:hover {
     border-color: #646cff;
-  }
+}
+
+
+
