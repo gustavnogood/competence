@@ -102,7 +102,8 @@ const RoadmapList = (): React.ReactElement => {
                                 {selectedRoadmapId === roadmap.id && (
                                     <div className={styles.RolesContainer}>
                                         {roadmap.roles.map((role) => (
-                                            <div key={role.roleId}>
+                                            <div className={styles.RoleWrapper} 
+                                                key={role.roleId}>
                                                 <button
                                                     className={`${styles.RoleButton} ${selectedRoleId === role.roleId && styles.Selected}`}
                                                     onClick={() => handleRoleClick(role.roleId, role.description)}

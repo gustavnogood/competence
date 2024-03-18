@@ -121,7 +121,7 @@
 .SkillsContainer {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 0.5rem; /* Add margin between role button and skills */
 }
 
