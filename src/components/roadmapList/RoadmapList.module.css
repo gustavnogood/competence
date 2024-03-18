@@ -70,16 +70,17 @@
 }
 
 .RoadmapWrapper {
-    margin-bottom: 1rem;
+    width: 100%; /* Ensure each roadmap wrapper takes full width */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Center children horizontally */
+    margin-bottom: 1rem;
 }
 
 .RoadmapsContainer {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 1rem;
 }
 
