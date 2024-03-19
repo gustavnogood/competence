@@ -86,7 +86,7 @@ const RoadmapList = (): React.ReactElement => {
     return (
         <div className={styles.Container}>
             <div className={styles.RoadmapList}>
-                <h1 className={styles.WelcomeTitle}>Welcome to your roadmap!</h1>
+                
                 {isLoading ? (
                     <img className={styles.Loading} alt="loading" src={loadingImg} />
                 ) : (
