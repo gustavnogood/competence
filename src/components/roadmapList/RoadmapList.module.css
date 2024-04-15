@@ -145,10 +145,14 @@
     margin: 0.5rem; /* Add margin around skill buttons */
 }
 
-.DescriptionConatiner {
+.DescriptionContainer {
     margin-top: 0.5rem; /* Add margin between skills and description */
 }
-
+.DescriptionTitle{
+    font-size: 1.5em;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
 
 
 

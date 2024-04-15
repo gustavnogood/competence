@@ -23,8 +23,10 @@ interface Skill {
     description: string;
 }
 
+
 const RoadmapList = (): React.ReactElement => {
     const api = "/api/roadmap";
+    const logapi = "/api/logtoken";
 
     const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -32,12 +34,24 @@ const RoadmapList = (): React.ReactElement => {
     const [selectedRoleId, setSelectedRoleId] = useState<string | null>(null);
     const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null);
     const [description, setDescription] = useState<string>("");
+    const [logToken, setLogToken] = useState(null);
+
 
     useEffect(() => {
         getRoadmaps();
+        getLogToken();
     }, []);
 
 
+    const getLogToken = () => {
+        axios.get(logapi)
+            .then((res) => {
+                setLogToken(res.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching log token:", error);
+            });
+        };
     const getRoadmaps = () => {
         setIsLoading(true);
         axios.get(api)
@@ -139,7 +153,11 @@ const RoadmapList = (): React.ReactElement => {
                     <p className={styles.Description}>{description}</p>
                 </div>
             )}
+            <div>
+            {logToken ? `Log token: ${logToken}` : 'Loading log token...'}
         </div>
+        </div>
+        
     );
 };
 
