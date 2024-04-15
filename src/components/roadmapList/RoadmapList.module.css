@@ -85,6 +85,7 @@
 }
 
 .RoadmapButton {
+    margin-top: 0.5rem;
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
@@ -116,7 +117,8 @@
     cursor: pointer;
     transition: border-color 0.25s;
     color: #fff; /* Text color for role button */
-    margin-left: 0.5rem; /* Add some margin between role buttons */
+    margin-left: 0.5rem;
+    margin-top: 0.5rem; /* Add some margin between role buttons */
 }
 
 .RoleButton:hover {
@@ -142,6 +144,11 @@
     color: #fff; /* Text color for skill button */
     margin: 0.5rem; /* Add margin around skill buttons */
 }
+
+.DescriptionConatiner {
+    margin-top: 0.5rem; /* Add margin between skills and description */
+}
+
 
 
 
