@@ -134,7 +134,7 @@ const RoadmapList = (): React.ReactElement => {
             </div>
             {description && (
                 <div className={styles.DescriptionContainer}>
-                    <h2 className={styles.DescriptionTitle}>Description</h2>
+                    <h2 className={styles.DescriptionTitle}>Descriptionses</h2>
                     <p className={styles.Description}>{description}</p>
                 </div>
             )}
