@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./RoadmapList.module.css";
 import { loadingImg } from "../../assets";
-import Msalconfig from "../msal/Msal";
+
 
 interface Roadmap {
     id: string;
@@ -89,7 +89,7 @@ const RoadmapList = (): React.ReactElement => {
 
     return (
         <div className={styles.Container}>
-            <Msalconfig />
+            
             <div className={styles.RoadmapList}>
                 {isLoading ? (
                     <img className={styles.Loading} alt="loading" src={loadingImg} />
