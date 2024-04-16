@@ -36,8 +36,8 @@ export default function MsalComponent() {
     if (accounts.length > 0) {
         return (
             <div className={styles.Container}>
-                <span>There are currently {accounts.length} users signed in!</span>
-                {apiData && (<span>Data retreived from API: {JSON.stringify(apiData)}</span>)}
+                There are currently {accounts.length} users signed in!
+                {apiData && (<p>Data retreived from API: {JSON.stringify(apiData)}</p>)}
             </div>
         );
     } else if (inProgress === "login") {
