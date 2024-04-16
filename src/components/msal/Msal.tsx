@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useMsal, useAccount } from "@azure/msal-react";
+import styles from "./Msal.module.css";
 
 export default function MsalComponent() {
     const { instance, accounts, inProgress } = useMsal();
@@ -34,10 +35,10 @@ export default function MsalComponent() {
 
     if (accounts.length > 0) {
         return (
-            <>
+            <div className={styles.Container}>
                 <span>There are currently {accounts.length} users signed in!</span>
                 {apiData && (<span>Data retreived from API: {JSON.stringify(apiData)}</span>)}
-            </>
+            </div>
         );
     } else if (inProgress === "login") {
         return <span>Login is currently in progress!</span>
