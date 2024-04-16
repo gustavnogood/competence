@@ -23,38 +23,38 @@ interface Skill {
     description: string;
 }
 
-
 const RoadmapList = (): React.ReactElement => {
     const api = "/api/roadmap";
-    const logapi = "/api/logtoken";
+    const userApi = "/api/saveroadmap"
 
     const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedRoadmapId, setSelectedRoadmapId] = useState<string | null>(null);
+    const [selectedRoadmapId, setSelectedRoadmapId] = useState<string | null>(
+        null
+    );
     const [selectedRoleId, setSelectedRoleId] = useState<string | null>(null);
     const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null);
     const [description, setDescription] = useState<string>("");
-    const [logToken, setLogToken] = useState(null);
-
 
     useEffect(() => {
         getRoadmaps();
-        getLogToken();
+        saveroadmap();
     }, []);
 
-
-    const getLogToken = () => {
-        axios.get(logapi)
-            .then((res) => {
-                setLogToken(res.data);
+    const saveroadmap = () => {
+        axios.post(userApi, { roadmapId: selectedRoadmapId, roleId: selectedRoleId, skillId: selectedSkillId })
+            .then((response) => {
+                console.log('Response from saveroadmap:', response);
             })
             .catch((error) => {
-                console.error("Error fetching log token:", error);
+                console.error('Error in saveroadmap:', error);
             });
-        };
+    }
+
     const getRoadmaps = () => {
         setIsLoading(true);
-        axios.get(api)
+        axios
+            .get(api)
             .then((res) => {
                 setRoadmaps(res.data);
                 setIsLoading(false);
@@ -101,7 +101,6 @@ const RoadmapList = (): React.ReactElement => {
     return (
         <div className={styles.Container}>
             <div className={styles.RoadmapList}>
-                
                 {isLoading ? (
                     <img className={styles.Loading} alt="loading" src={loadingImg} />
                 ) : (
@@ -110,18 +109,22 @@ const RoadmapList = (): React.ReactElement => {
                             <div className={styles.RoadmapWrapper} key={roadmap.id}>
                                 <button
                                     className={styles.RoadmapButton}
-                                    onClick={() => handleRoadmapClick(roadmap.id, roadmap.description)}
+                                    onClick={() =>
+                                        handleRoadmapClick(roadmap.id, roadmap.description)
+                                    }
                                 >
                                     {roadmap.name}
                                 </button>
                                 {selectedRoadmapId === roadmap.id && (
                                     <div className={styles.RolesContainer}>
                                         {roadmap.roles.map((role) => (
-                                            <div className={styles.RoleWrapper} 
-                                                key={role.roleId}>
+                                            <div className={styles.RoleWrapper} key={role.roleId}>
                                                 <button
-                                                    className={`${styles.RoleButton} ${selectedRoleId === role.roleId && styles.Selected}`}
-                                                    onClick={() => handleRoleClick(role.roleId, role.description)}
+                                                    className={`${styles.RoleButton} ${selectedRoleId === role.roleId && styles.Selected
+                                                        }`}
+                                                    onClick={() =>
+                                                        handleRoleClick(role.roleId, role.description)
+                                                    }
                                                 >
                                                     {role.name}
                                                 </button>
@@ -129,9 +132,16 @@ const RoadmapList = (): React.ReactElement => {
                                                     <div className={styles.SkillsContainer}>
                                                         {role.skills.map((skill) => (
                                                             <button
-                                                                className={`${styles.SkillButton} ${selectedSkillId === skill.skillId && styles.Selected}`}
+                                                                className={`${styles.SkillButton} ${selectedSkillId === skill.skillId &&
+                                                                    styles.Selected
+                                                                    }`}
                                                                 key={skill.skillId}
-                                                                onClick={() => handleSkillClick(skill.skillId, skill.description)}
+                                                                onClick={() =>
+                                                                    handleSkillClick(
+                                                                        skill.skillId,
+                                                                        skill.description
+                                                                    )
+                                                                }
                                                             >
                                                                 {skill.name}
                                                             </button>
@@ -153,11 +163,14 @@ const RoadmapList = (): React.ReactElement => {
                     <p className={styles.Description}>{description}</p>
                 </div>
             )}
-            <div>
-            {logToken ? `Log token: ${logToken}` : 'Loading log token...'}
+
+            {selectedRoadmapId && selectedRoleId && selectedSkillId && (
+                <button className={styles.SaveButton} onClick={saveroadmap}>
+                    Save Roadmap
+                </button>
+            )}
+            
         </div>
-        </div>
-        
     );
 };
 
