@@ -25,7 +25,6 @@ interface Skill {
 
 const RoadmapList = (): React.ReactElement => {
     const api = "/api/roadmap";
-    const userApi = "/api/saveroadmap"
 
     const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -38,18 +37,7 @@ const RoadmapList = (): React.ReactElement => {
 
     useEffect(() => {
         getRoadmaps();
-        saveroadmap();
     }, []);
-
-    const saveroadmap = () => {
-        axios.post(userApi, { roadmapId: selectedRoadmapId, roleId: selectedRoleId, skillId: selectedSkillId })
-            .then((response) => {
-                console.log('Response from saveroadmap:', response);
-            })
-            .catch((error) => {
-                console.error('Error in saveroadmap:', error);
-            });
-    }
 
     const getRoadmaps = () => {
         setIsLoading(true);
@@ -164,11 +152,11 @@ const RoadmapList = (): React.ReactElement => {
                 </div>
             )}
 
-            {selectedRoadmapId && selectedRoleId && selectedSkillId && (
+{/*             {selectedRoadmapId && selectedRoleId && selectedSkillId && (
                 <button className={styles.SaveButton} onClick={saveroadmap}>
                     Save Roadmap
                 </button>
-            )}
+            )} */}
             
         </div>
     );
