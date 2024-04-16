@@ -2,10 +2,15 @@ import { useState, useEffect } from "react"
 import { useMsal, useAccount } from "@azure/msal-react";
 import styles from "./Msal.module.css";
 
+type ApiDataType = {
+    displayName: string;
+    id: string;
+}
+
 export default function MsalComponent() {
     const { instance, accounts, inProgress } = useMsal();
     const account = useAccount(accounts[0] || {});
-    const [apiData, setApiData] = useState(null);
+    const [apiData, setApiData] = useState<ApiDataType | null>(null);
 
     function callMsGraph(accessToken: string) {
         return fetch("https://graph.microsoft.com/v1.0/me", {
@@ -37,7 +42,12 @@ export default function MsalComponent() {
         return (
             <div className={styles.Container}>
                 There are currently {accounts.length} users signed in!
-                {apiData && (<p>Data retreived from API: {JSON.stringify(apiData)}</p>)}
+                {apiData && (  
+                <p>
+                    Display Name: {apiData.displayName} <br/>
+                    ID: {apiData.id}
+
+                </p>)}
             </div>
         );
     } else if (inProgress === "login") {
