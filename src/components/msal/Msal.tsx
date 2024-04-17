@@ -33,6 +33,7 @@ export default function MsalComponent() {
                 displayName: apiData.displayName,
                 id: apiData.id
             };
+            console.log(userData);
     
             axios.post('/users', userData)
                 .then(response => console.log(response))
