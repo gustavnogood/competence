@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { useMsal, useAccount } from "@azure/msal-react";
 import styles from "./Msal.module.css";
+import axios from '../../api/axiosInstance';
+
 
 type ApiDataType = {
     displayName: string;
@@ -23,6 +25,21 @@ export default function MsalComponent() {
             console.error("Error calling Microsoft Graph API:", error);
             throw error;
         });
+    }
+
+    function addUserToDB() {
+        if (apiData) {
+            const userData = {
+                displayName: apiData.displayName,
+                id: apiData.id
+            };
+    
+            axios.post('/users', userData)
+                .then(response => console.log(response))
+                .catch(error => console.error(error));
+        } else {
+            console.error('apiData is null');
+        }
     }
 
     useEffect(() => {
@@ -48,6 +65,7 @@ export default function MsalComponent() {
                     ID: {apiData.id}
 
                 </p>)}
+                <button onClick={addUserToDB}>Add user to DB</button>
             </div>
         );
     } else if (inProgress === "login") {
