@@ -28,10 +28,11 @@ export default function MsalComponent() {
     }
 
     function addUserToDB() {
-        if (apiData) {
+        if (apiData && apiData.id && apiData.displayName) {
             const userData = {
-                displayName: apiData.displayName,
-                id: apiData.id
+                id: apiData.id,
+                displayName: apiData.displayName
+                
             };
             console.log(userData);
     
@@ -39,7 +40,7 @@ export default function MsalComponent() {
                 .then(response => console.log(response))
                 .catch(error => console.error(error));
         } else {
-            console.error('apiData is null');
+            console.error('invalid apiData:', apiData);
         }
     }
 
