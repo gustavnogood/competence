@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../../api/axiosInstance";
+import axios from "axios";
 import styles from "./RoadmapList.module.css";
 import { loadingImg } from "../../assets";
 
@@ -25,7 +25,7 @@ interface Skill {
 }
 
 const RoadmapList = (): React.ReactElement => {
-    const api = "roadmap";
+    const api = "/api/roadmap";
 
     const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +42,7 @@ const RoadmapList = (): React.ReactElement => {
 
     const getRoadmaps = () => {
         setIsLoading(true);
-        axiosInstance
+        axios
             .get(api)
             .then((res) => {
                 setRoadmaps(res.data);
