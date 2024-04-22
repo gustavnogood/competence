@@ -38,7 +38,7 @@ export default function MsalComponent() {
     
             axios.post('/users', userData)
                 .then(response => console.log(response))
-                .catch(error => console.error(error));
+                .catch(error => console.error('Error adding user to DB:', error));
         } else {
             console.error('invalid apiData:', apiData);
         }
