@@ -25,7 +25,7 @@ interface Skill {
 }
 
 const RoadmapList = (): React.ReactElement => {
-    const api = "roadmap?";
+    const api = "roadmap";
 
     const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
     const [isLoading, setIsLoading] = useState(false);

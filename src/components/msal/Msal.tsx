@@ -36,7 +36,7 @@ export default function MsalComponent() {
             };
             console.log(userData);
     
-            axios.post('users?', userData)
+            axios.post('users', userData)
                 .then(response => console.log(response))
                 .catch(error => console.error('Error adding user to DB:', error));
         } else {
