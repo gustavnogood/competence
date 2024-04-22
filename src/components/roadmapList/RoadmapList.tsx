@@ -50,6 +50,7 @@ const RoadmapList = (): React.ReactElement => {
             })
             .catch((error) => {
                 console.error("Error fetching roadmaps:", error);
+                console.error("Error response:", error.response);
                 setIsLoading(false);
             });
     };
