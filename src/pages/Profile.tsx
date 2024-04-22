@@ -1,6 +1,7 @@
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 import LoginPage from "./Login";
 import MsalComponent from "../components/msal/Msal";
+import Msalconfig from "../components/msal/Msal";
 export function Profile() {
   
     return (
@@ -10,7 +11,8 @@ export function Profile() {
           <h1>Profile</h1>
           <p>Welcome to your profile!</p>
         </div>
-        <MsalComponent />
+        <MsalComponent/>
+        <Msalconfig/>
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <div>
