@@ -1,1 +1,1 @@
-export const BACKEND_BASE_URL = "https://lemon-bush-0b00d6303.4.azurestaticapps.net/api/";
+export const BACKEND_BASE_URL = "https://bff-competence-test.azurewebsites.net/api/";
