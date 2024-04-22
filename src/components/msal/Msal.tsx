@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useMsal, useAccount } from "@azure/msal-react";
 import styles from "./Msal.module.css";
-import axios from '../../api/axiosInstance';
+import axiosInstance from '../../api/axiosInstance';
 
 
 type ApiDataType = {
@@ -36,7 +36,7 @@ export default function MsalComponent() {
             };
             console.log(userData);
     
-            axios.post('users', userData)
+            axiosInstance.post('users', userData)
                 .then(response => console.log(response))
                 .catch(error => console.error('Error adding user to DB:', error));
         } else {
