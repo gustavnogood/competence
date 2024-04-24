@@ -19,6 +19,7 @@ export default function MsalComponent() {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
+            
         })
         .then(response => response.json())
         .catch(error => {
@@ -56,6 +57,7 @@ export default function MsalComponent() {
             });
         }
     }, [account, instance]);
+
 
     if (accounts.length > 0) {
         return (

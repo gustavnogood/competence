@@ -13,8 +13,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { CustomNavigationClient } from "./utils/NavigationClient";
 import { MsalProvider } from "@azure/msal-react";
 import { IPublicClientApplication } from "@azure/msal-browser";
-// import { AuthenticatedTemplate } from '@azure/msal-react';
-// import { UnauthenticatedTemplate } from '@azure/msal-react';
+
 
 type AppProps = {
   pca: IPublicClientApplication;
@@ -51,21 +50,3 @@ function Pages() {
 }
 
 export default App
-
-
-  {/* return (
-    <>
-      <AuthenticatedTemplate> 
-        <NavBarLayout/>
-        <Home />
-        <DashBoard />
-        <Profile />
-        <Roadmap />
-      </AuthenticatedTemplate>
-      <UnauthenticatedTemplate> 
-          <Login />
-      </UnauthenticatedTemplate> 
-        
-      
-    </>
-  ); */}
