@@ -30,14 +30,14 @@ export default function MsalComponent() {
 
     function addUserToDB() {
         if (apiData && apiData.id && apiData.displayName) {
-            const userData = {
+            const userRequest = {
                 id: apiData.id,
                 displayName: apiData.displayName
                 
             };
-            console.log(userData);
+            console.log(userRequest);
     
-            axiosInstance.post('users', userData)
+            axiosInstance.post('users', userRequest)
                 .then(response => console.log(response))
                 .catch(error => console.error('Error adding user to DB:', error.response.data));
         } else {
