@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import styles from "./RoadmapList.module.css";
 import { loadingImg } from "../../assets";
+import axiosInstance from "../../api/axiosInstance";
 
 
 interface Roadmap {
@@ -42,7 +42,7 @@ const RoadmapList = (): React.ReactElement => {
 
     const getRoadmaps = () => {
         setIsLoading(true);
-        axios
+        axiosInstance
             .get(api)
             .then((res) => {
                 setRoadmaps(res.data);
