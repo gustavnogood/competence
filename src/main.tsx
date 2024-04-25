@@ -37,17 +37,3 @@ msalInstance.initialize().then(() => {
     </Router>
   );
 });
-
-// const pca = new PublicClientApplication(msalConfig);
-
-// const AppWithAuthentication = () => (
-//   <React.StrictMode>
-//   <MsalProvider instance={pca}>
-//         <App />
-//   </MsalProvider>
-// </React.StrictMode>
-// );
-
-// ReactDOM.createRoot(document.getElementById('root')!).render(
-//   <AppWithAuthentication />
-// )
