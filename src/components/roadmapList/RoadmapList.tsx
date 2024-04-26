@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../../api/axiosInstance";
+import axiosInstance from "../../axios/axiosInstance";
 import RoadmapItem from "./RoadmapItem";
 import Loading from "../loading/Loading";
 import { Roadmap} from './Types';

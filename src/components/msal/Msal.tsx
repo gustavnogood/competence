@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useMsal, useAccount } from "@azure/msal-react";
 import styles from "./Msal.module.css";
-import axiosInstance from '../../api/axiosInstance';
+import axiosInstance from '../../axios/axiosInstance';
 
 
 type ApiDataType = {
