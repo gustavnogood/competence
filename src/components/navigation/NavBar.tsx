@@ -1,19 +1,7 @@
 import React, { useState } from "react";
 import "../../App.css";
 import LogOutButton from "../LogOutButton";
-import { Close, Menu } from '@mui/icons-material';
-import {
-  AppBar,
-  Box,
-  Button,
-  Dialog,
-  Hidden,
-  IconButton,
-  Slide,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import { TransitionProps } from '@mui/material/transitions';
+
 
 export type NavigationProps = {
   isSmall: boolean;
@@ -34,15 +22,6 @@ const navigationItems = [
   },
 ];
 
-const Transition = React.forwardRef((
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>;
-  },
-  ref: React.Ref<unknown>,
-) => {
-  return <Slide direction="left" ref={ref} {...props} />;
-});
-
 export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
   const [open, setOpen] = useState(false);
 
@@ -52,9 +31,11 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
   const mappedItems = (
     navigationItems.map(({ text, href }) => { 
       return (
-        <Button key={href} href={href} color="inherit" size="large" fullWidth={isSmall} onClick={onCloseHandler}>
-          {text}
-        </Button>
+<a key={href} href={href} onClick={onCloseHandler} style={{ display: 'block', width: isSmall ? '100%' : 'auto' }}>
+  <button>
+    {text}
+  </button>
+</a>
       );
     })
   );
@@ -62,43 +43,32 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
   return (
     <>
       <LogOutButton />
-      <Hidden smDown>
-        <Box display="flex" gap={2}>
-          {mappedItems}
-        </Box>
-      </Hidden>
-      <Hidden smUp>
-        <IconButton color="inherit" onClick={onOpenHandler}>
-          <Menu />
-        </IconButton>
-        <Dialog
-          open={open}
-          fullScreen
-          fullWidth
-          TransitionComponent={Transition}
-          hideBackdrop
-          PaperProps={{
-            sx: {
-              boxShadow: 'none',
-            },
-          }}
-        >
-          <AppBar position="static" sx={{ backgroundColor: "#D7D2CB", color: 'text.primary' }}>
-            <Toolbar>
-              <Typography variant="h5" sx={{ flexGrow: 1 }}>
-                Menu
-              </Typography>
-              <IconButton color="inherit" onClick={onCloseHandler}>
-                <Close />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-          <Box display="flex" flexDirection="column" py={4} width="100%">
-            {mappedItems}
-          </Box>
-          <LogOutButton />
-        </Dialog>
-      </Hidden>
+      {/* Replace Hidden with a custom component or CSS */}
+      <div style={{ display: isSmall ? 'none' : 'flex', gap: '8px' }}>
+        {mappedItems}
+      </div>
+      {/* Replace Hidden with a custom component or CSS */}
+      <div style={{ display: isSmall ? 'block' : 'none' }}>
+        <button onClick={onOpenHandler}>
+          Menu {/* Replace Menu icon with a text or a custom icon */}
+        </button>
+        {open && (
+          <div>
+            {/* Replace AppBar, Toolbar, and Typography with native HTML elements */}
+            <div style={{ backgroundColor: "#D7D2CB", color: 'text.primary' }}>
+              <div>
+                <h5 style={{ flexGrow: 1 }}>
+                  Menu
+                </h5>
+                <button onClick={onCloseHandler}>
+                  Close {/* Replace Close icon with a text or a custom icon */}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
-};
+
+}

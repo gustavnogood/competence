@@ -8,8 +8,7 @@ import {
   AuthenticationResult,
 } from "@azure/msal-browser";
 import { msalConfig } from "./auth/authConfig.ts";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "./styles/theme";
+
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -31,9 +30,7 @@ msalInstance.initialize().then(() => {
   );
   root.render(
     <Router>
-      <ThemeProvider theme={theme}>
         <App pca={msalInstance} />
-      </ThemeProvider>
     </Router>
   );
 });

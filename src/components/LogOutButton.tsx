@@ -1,5 +1,4 @@
 import { useMsal } from "@azure/msal-react";
-import { Button } from "@mui/material";
 const LogOutButton = () => {
     const { instance } = useMsal();
 
@@ -8,7 +7,9 @@ const LogOutButton = () => {
     };
 
     return (
-        <Button onClick={logout}>Sign out</Button>
+        <button onClick={logout}>
+            Log Out
+        </button>
     );
 };
 
