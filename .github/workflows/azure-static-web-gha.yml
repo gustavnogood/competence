@@ -12,7 +12,6 @@ env:
     AZURE_SWA_NAME: "swa-competence-test" # set this to your swa name on Azure
     AZURE_SWA_RESOURCE_GROUP: "rg-competence-test" # set this to your resource group name on Azure
     APP_LOCATION: "/" # location of your client code
-    API_LOCATION: "src/api" # location of your api source code - optional
     OUTPUT_LOCATION: "dist" # location of client code build output
 
 permissions:
@@ -55,7 +54,6 @@ jobs:
                   repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
                   action: "upload"
                   app_location: ${{ env.APP_LOCATION }}
-                  api_location: ${{ env.API_LOCATION }}
                   output_location: ${{ env.OUTPUT_LOCATION }}
             - name: Reset deployment key
               uses: azure/powershell@v2
