@@ -12,6 +12,7 @@ env:
     AZURE_SWA_NAME: "swa-competence-test" # set this to your swa name on Azure
     AZURE_SWA_RESOURCE_GROUP: "rg-competence-test" # set this to your resource group name on Azure
     APP_LOCATION: "/" # location of your client code
+    API_LOCATION: "api"
     OUTPUT_LOCATION: "dist" # location of client code build output
 
 permissions:
@@ -35,7 +36,7 @@ jobs:
               id: deploymentkey
               uses: azure/powershell@v2
               with:
-                  azPSVersion: "latest"
+                  azPSVersion: latest
                   inlineScript: |
                       $secretInfo = $(az staticwebapp secrets list --name ${{ env.AZURE_SWA_NAME }} -g ${{ env.AZURE_SWA_RESOURCE_GROUP }}) | ConvertFrom-JSON
                       $deploymentKey = $secretInfo.properties.apiKey
