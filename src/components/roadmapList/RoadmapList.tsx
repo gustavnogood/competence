@@ -18,21 +18,31 @@ const RoadmapList: React.FC = () => {
             try {
                 const response = await axiosInstance.get('/roadmap');
                 setRoadmaps(response.data);
-                setLoading(false);
+                setError(null); // Clear any previous errors
             } catch (error) {
                 const axiosError = error as AxiosError;
                 console.error('Failed to fetch roadmaps:', axiosError);
                 if (axiosError.response) {
-                    console.error('Response data:', axiosError.response.data);
-                    console.error('Response status:', axiosError.response.status);
-                    console.error('Response headers:', axiosError.response.headers);
-                    setError(axiosError.message);
+                    if (axiosError.response.data) {
+                        if (typeof axiosError.response.data === 'object') {
+                            // @ts-ignore
+                            setError(JSON.stringify(axiosError.response.data));
+                        } else {
+                            // @ts-ignore
+                            setError(axiosError.response.data);
+                        }
+                    } else {
+                        setError('No data received from server');
+                    }
                 } else {
-                    setError('An unexpected error occurred');
+                    setError(axiosError.message || 'An unexpected error occurred');
                 }
+                
+            } finally {
+                setLoading(false); // Ensure loading is set to false even if an error occurs
             }
         };
-
+    
         fetchRoadmaps();
     }, []);
 
