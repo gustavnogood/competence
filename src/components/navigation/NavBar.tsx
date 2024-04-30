@@ -20,6 +20,10 @@ const navigationItems = [
     text: 'Dashboard',
     href: 'dashboard',
   },
+  {
+    text: 'Home',
+    href: '/',
+  }
 ];
 
 export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
@@ -42,26 +46,27 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
 
   return (
     <>
-      <LogOutButton />
+      
       {/* Replace Hidden with a custom component or CSS */}
-      <div style={{ display: isSmall ? 'none' : 'flex', gap: '8px' }}>
+      <div style={{ display: isSmall ? 'none' : 'flex', gap: '8px', width: '100%' }}>
         {mappedItems}
+        <LogOutButton />
       </div>
-      {/* Replace Hidden with a custom component or CSS */}
+      
       <div style={{ display: isSmall ? 'block' : 'none' }}>
         <button onClick={onOpenHandler}>
-          Menu {/* Replace Menu icon with a text or a custom icon */}
+          Menu 
         </button>
         {open && (
           <div>
-            {/* Replace AppBar, Toolbar, and Typography with native HTML elements */}
+            
             <div style={{ backgroundColor: "#D7D2CB", color: 'text.primary' }}>
               <div>
                 <h5 style={{ flexGrow: 1 }}>
                   Menu
                 </h5>
                 <button onClick={onCloseHandler}>
-                  Close {/* Replace Close icon with a text or a custom icon */}
+                  Close 
                 </button>
               </div>
             </div>

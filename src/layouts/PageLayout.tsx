@@ -6,9 +6,9 @@ type Props = {
 
 export const PageLayout: React.FC<Props> = ({children}) => {
     return (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
             <NavBarLayout />
             {children}
-        </>
+        </div>
     );
 };

@@ -9,7 +9,7 @@ export const NavBarLayout = () => {
 
     return (
     <div>
-        <header style={{ position: "fixed", backgroundColor: "#D7D2CB" }}>
+        <header style={{ position: "fixed", backgroundColor: "#D7D2CB"}}>
         <div>
             <div style={{ flexGrow: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: '0.5rem', cursor: 'pointer' }}>

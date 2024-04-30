@@ -7,10 +7,10 @@ import {
   EventMessage,
   AuthenticationResult,
 } from "@azure/msal-browser";
-import { msalConfig } from "./auth/authConfig.ts";
+import { MsalConfig } from "./auth/msalConfig.ts";
 
 
-export const msalInstance = new PublicClientApplication(msalConfig);
+export const msalInstance = new PublicClientApplication(MsalConfig);
 
 msalInstance.initialize().then(() => {
   // Account selection logic is app dependent. Adjust as needed for different use cases.

@@ -1,8 +1,8 @@
 import React from 'react';
-import { loadingImg } from '../../assets';
+import styles from './Loading.module.css';
 
 const Loading: React.FC = () => {
-    return <img src={loadingImg} alt="Loading..." />;
+    return <div className={styles.ldsellipsis}><div></div><div></div><div></div><div></div></div>;
 };
 
 export default Loading;
