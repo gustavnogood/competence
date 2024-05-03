@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../axios/axiosInstance";
-import RoadmapItem from "./RoadmapItem";
 import Loading from "../loading/Loading";
-import { Roadmap} from './Types';
 import { AxiosError } from "axios";
+import Tree, { RawNodeDatum } from 'react-d3-tree';
+import './custom-tree.css';
 
 
 
 
 const RoadmapList: React.FC = () => {
-    const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
+    const [data, setData] = useState<RawNodeDatum[] | undefined>();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -17,7 +17,7 @@ const RoadmapList: React.FC = () => {
         const fetchRoadmaps = async () => {
             try {
                 const response = await axiosInstance.get('/roadmap');
-                setRoadmaps(response.data);
+                setData(response.data);
                 setError(null); // Clear any previous errors
             } catch (error) {
                 const axiosError = error as AxiosError;
@@ -45,15 +45,22 @@ const RoadmapList: React.FC = () => {
     
         fetchRoadmaps();
     }, []);
-
+    console.log(data);
     return (
-        <div>
+        <div className="RoadmapList">
             {loading ? (
                 <Loading />
             ) : error ? (
                 <div>Error: {error}</div>
             ) : (
-                roadmaps.map((roadmap) => <RoadmapItem key={roadmap.id} roadmap={roadmap} />)
+                <div id="treeWrapper" style={{ width: '50em', height: '20em' }}>
+                    <Tree
+                        data={data}
+                        rootNodeClassName="node__root"
+                        branchNodeClassName="node__branch"
+                        leafNodeClassName="node__leaf"
+                    />
+                </div>
             )}
         </div>
     );

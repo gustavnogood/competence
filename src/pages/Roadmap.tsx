@@ -10,7 +10,7 @@ export function Roadmap() {
         
       </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
-        <div>
+        <div className='Roadmap'>
           <h1>Roadmap</h1>
           <p>You need to login to see the secret message :P</p>
           <LoginPage />

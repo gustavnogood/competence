@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../App.css";
-import LogOutButton from "../LogOutButton";
+import LogOutButton from "./LogOutButton";
 
 
 export type NavigationProps = {
@@ -48,12 +48,12 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
     <>
       
       {/* Replace Hidden with a custom component or CSS */}
-      <div style={{ display: isSmall ? 'none' : 'flex', gap: '8px', width: '100%' }}>
+      <div className="buttons" style={{ display: isSmall ? 'none' : 'flex', gap: '8px', width: '100%' }}>
         {mappedItems}
         <LogOutButton />
       </div>
       
-      <div style={{ display: isSmall ? 'block' : 'none' }}>
+      <div className="smallMenu" style={{ display: isSmall ? 'block' : 'none' }}>
         <button onClick={onOpenHandler}>
           Menu 
         </button>

@@ -1,0 +1,20 @@
+.node__root circle {
+    fill: red;
+  }
+  
+  .node__branch circle {
+    fill: yellow;
+  }
+  
+  .node__leaf circle {
+    fill: green;
+    r: 40;
+  }
+  
+  .link__to-leaf {
+    stroke: green;
+  }
+  
+  .link__to-branch {
+    stroke: yellow;
+  }
