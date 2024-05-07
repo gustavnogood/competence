@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import axiosInstance from "../../axios/axiosInstance";
 import Loading from "../loading/Loading";
 import { AxiosError } from "axios";
@@ -7,18 +7,28 @@ import './custom-tree.css';
 
 
 
-
 const RoadmapList: React.FC = () => {
     const [data, setData] = useState<RawNodeDatum[] | undefined>();
+    const [dataLoaded, setDataLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const treeWrapperRef = useRef(null);
+    const [translate, setTranslate] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
         const fetchRoadmaps = async () => {
             try {
+                setLoading(true);
                 const response = await axiosInstance.get('/roadmap');
-                setData(response.data);
+                const rootNode = {
+                    name: 'Start Here',
+                    id: '0',
+                    children: response.data,
+                };
+                setData([rootNode]);
+                console.log('Data after API call:', response.data);
                 setError(null); // Clear any previous errors
+                setDataLoaded(true);
             } catch (error) {
                 const axiosError = error as AxiosError;
                 console.error('Failed to fetch roadmaps:', axiosError);
@@ -45,17 +55,38 @@ const RoadmapList: React.FC = () => {
     
         fetchRoadmaps();
     }, []);
-    console.log(data);
+
+    useLayoutEffect(() => {
+        if (dataLoaded) {
+            function handleResize() {
+                if (treeWrapperRef.current) {
+                    const { clientWidth, clientHeight } = treeWrapperRef.current;
+                    setTranslate({ x: clientWidth / 2, y: clientHeight / 2 });
+                }
+            }
+    
+            handleResize();
+            window.addEventListener('resize', handleResize);
+    
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        }
+    }, [dataLoaded]);
+
     return (
-        <div className="RoadmapList">
+        <div className="RoadmapTree">
             {loading ? (
                 <Loading />
             ) : error ? (
                 <div>Error: {error}</div>
             ) : (
-                <div id="treeWrapper" style={{ width: '50em', height: '20em' }}>
+                <div ref={treeWrapperRef} id="treeWrapper" style={{ width: '100%', height: '70vh' }}>
                     <Tree
                         data={data}
+                        translate={translate}
+
+                        initialDepth={0}
                         rootNodeClassName="node__root"
                         branchNodeClassName="node__branch"
                         leafNodeClassName="node__leaf"

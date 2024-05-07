@@ -1,4 +1,4 @@
-import NavBarLayout from "../components/navigation/NavBarLayout";
+import NavBarLayout from "../components/navbar/NavBarLayout";
 
 type Props = {
     children?: React.ReactNode;

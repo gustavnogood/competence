@@ -17,3 +17,9 @@ export interface Skill {
     name: string;
     description: string;
 }
+
+export interface Node {
+    id: string;
+    name: string;
+    children?: Node[];
+}
