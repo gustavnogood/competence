@@ -8,6 +8,8 @@ import { useResizeHandler } from "./useResizeHandler";
 
 export interface MyTreeNodeDatum extends RawNodeDatum {
     depth: number;
+    name: string;
+    id: string;
 }
 
 const RoadmapList: React.FC = () => {
