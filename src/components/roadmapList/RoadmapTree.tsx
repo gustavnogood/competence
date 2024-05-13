@@ -5,6 +5,9 @@ import { AxiosError } from "axios";
 import { Tree, RawNodeDatum } from 'react-d3-tree';
 import './custom-tree.css';
 
+interface MyTreeNodeDatum extends RawNodeDatum {
+    depth: number;
+  }
 
 const RoadmapList: React.FC = () => {
     const [data, setData] = useState<RawNodeDatum[] | undefined>();
@@ -92,13 +95,20 @@ const RoadmapList: React.FC = () => {
                         branchNodeClassName="node__branch"
                         leafNodeClassName="node__leaf"
                         renderCustomNodeElement={(rd3tNodeProps) => {
-                            const { nodeDatum, toggleNode} = rd3tNodeProps;
+                            const nodeDatum = rd3tNodeProps.nodeDatum as unknown as MyTreeNodeDatum;
+                            const toggleNode = rd3tNodeProps.toggleNode;
                             return (
                                 <g onClick={() => toggleNode()}>
                                     <rect width={100} height={50} stroke="black" fill="white" />
                                     <foreignObject x="0" y="0" width="100" height="50">
-                                        <div style={{ width: '100px', height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <div style={{ width: '100px', height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2px' }}>
                                             {nodeDatum.name}
+                                            <button onClick={(e) => {
+                                                e.stopPropagation(); // Prevents the node toggle
+                                                console.log('you clicked:', nodeDatum.name);
+                                            }}>
+                                            ✓
+                                            </button>
                                         </div>
                                     </foreignObject>
                                 </g>
