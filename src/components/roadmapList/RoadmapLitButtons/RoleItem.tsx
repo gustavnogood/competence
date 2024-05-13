@@ -1,6 +1,6 @@
 import React from "react";
 import SkillItem from "./SkillItem";
-import { Role as RoleType } from "./Types";
+import { Role as RoleType } from "../Types";
 
 interface RoleItemProps {
     role: RoleType;

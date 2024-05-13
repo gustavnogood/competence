@@ -1,6 +1,6 @@
 import React from "react";
 import RoleItem from "./RoleItem";
-import { Roadmap as RoadmapType } from "./Types";
+import { Roadmap as RoadmapType } from "../Types";
 
 interface RoadmapItemProps {
     roadmap: RoadmapType;
