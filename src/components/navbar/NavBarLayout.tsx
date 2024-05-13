@@ -2,7 +2,7 @@ import { useMediaQuery } from 'react-responsive';
 import { logoImg } from '../../assets/index';
 import { NavBar } from './NavBar';
 
-export type MainLayoutProps = {};
+export type MainLayoutProps = Record<string, never>;
 
 export const NavBarLayout = () => {
     const isSmall = useMediaQuery({ query: '(max-width: 600px)' });

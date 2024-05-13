@@ -1,6 +1,6 @@
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
-import LoginPage from './Login';
-import RoadmapList from '../components/roadmapList/RoadmapTree';
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react"
+import LoginPage from './Login'
+import RoadmapList from '../components/roadmapList/RoadmapTree'
 
 export function Roadmap() {
   
@@ -19,6 +19,6 @@ export function Roadmap() {
         
       </UnauthenticatedTemplate>
       </>
-    );
-  };
+    )
+  }
   export default Roadmap;

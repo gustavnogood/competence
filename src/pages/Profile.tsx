@@ -1,6 +1,6 @@
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
-import LoginPage from "./Login";
-import MsalComponent from "../components/msal/Msal";
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react"
+import LoginPage from "./Login"
+import MsalComponent from "../components/msal/Msal"
 export function Profile() {
   
     return (
@@ -20,6 +20,6 @@ export function Profile() {
         </div>
       </UnauthenticatedTemplate>
       </>
-    );
-  };
+    )
+  }
   export default Profile;

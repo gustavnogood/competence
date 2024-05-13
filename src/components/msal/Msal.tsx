@@ -29,12 +29,20 @@ export default function MsalComponent() {
     }
 
     function addUserToDB() {
-        if (apiData && apiData.id && apiData.displayName) {
-            const userRequest = {
+        let userRequest;
+        if (process.env.NODE_ENV === 'development') {
+            userRequest = {
+                id: '2',
+                displayName: 'hejhej'
+            };
+        } else if (apiData && apiData.id && apiData.displayName) {
+            userRequest = {
                 id: apiData.id,
                 displayName: apiData.displayName
-                
             };
+        }
+    
+        if (userRequest) {
             console.log(userRequest);
     
             axiosInstance.post('users', userRequest)
@@ -52,7 +60,7 @@ export default function MsalComponent() {
                 account: account
             }).then((response) => {
                 if(response) {
-                    callMsGraph(response.accessToken).then((result: any) => setApiData(result));
+                    callMsGraph(response.accessToken).then((result: ApiDataType) => setApiData(result));
                 }
             });
         }

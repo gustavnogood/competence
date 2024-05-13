@@ -1,5 +1,5 @@
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
-import LoginPage from "./Login";
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react"
+import LoginPage from "./Login"
 export function Dashboard() {
   
     return (
@@ -18,6 +18,6 @@ export function Dashboard() {
         </div>
       </UnauthenticatedTemplate>
       </>
-    );
-  };
+    )
+  }
   export default Dashboard;
