@@ -1,6 +1,7 @@
 import React from "react";
 import { MyTreeNodeDatum } from "./RoadmapTree";
 
+
 interface TreeNodeProps {
     nodeDatum: MyTreeNodeDatum;
     toggleNode: () => void;
@@ -16,6 +17,8 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode }) => {
                     <button onClick={(e) => {
                         e.stopPropagation(); // Prevents the node toggle
                         console.log('you clicked:', nodeDatum.name);
+                        // add logic for appending the node name to user in cosmos db
+                        
                     }}>
                     ✓
                     </button>

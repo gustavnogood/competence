@@ -2,9 +2,11 @@ import { useState, useEffect } from "react"
 import { useMsal, useAccount } from "@azure/msal-react";
 import styles from "./Msal.module.css";
 import axiosInstance from '../../axios/axiosInstance';
+import { LoginStatus } from "./LoginStatus";
+import { UserDisplay } from "./UserDisplay";
 
 
-type ApiDataType = {
+export type ApiDataType = {
     displayName: string;
     id: string;
 }
@@ -70,15 +72,9 @@ export default function MsalComponent() {
     if (accounts.length > 0) {
         return (
             <div className={styles.Container}>
-                There are currently {accounts.length} users signed in!
-                {apiData && (  
-                <p>
-                    Display Name: {apiData.displayName} <br/>
-                    ID: {apiData.id}
-
-                </p>)}
-                <button onClick={addUserToDB}>Add user to DB</button>
-            </div>
+            <LoginStatus inProgress={inProgress} accounts={accounts} />
+            <UserDisplay apiData={apiData} addUserToDB={addUserToDB} />
+        </div>
         );
     } else if (inProgress === "login") {
         return <span>Login is currently in progress!</span>
