@@ -2,7 +2,7 @@ import { ApiDataType } from './Msal';
 
 type UserDisplayProps = {
     apiData: ApiDataType | null;
-    addUserToDB: () => void;
+    addUserToDB: (apiData: ApiDataType | null, nodeId: string) => void;
 };
 
 export function UserDisplay({ apiData, addUserToDB }: UserDisplayProps) {
@@ -14,7 +14,7 @@ export function UserDisplay({ apiData, addUserToDB }: UserDisplayProps) {
                     ID: {apiData.id}
                 </p>
             )}
-            <button onClick={addUserToDB}>Add user to DB</button>
+            <button onClick={() => addUserToDB(apiData, "1")}>Add user to DB</button>
         </div>
     );
 }

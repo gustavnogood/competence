@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 import { useMsal, useAccount } from "@azure/msal-react";
 import styles from "./Msal.module.css";
-import axiosInstance from '../../axios/axiosInstance';
 import { LoginStatus } from "./LoginStatus";
 import { UserDisplay } from "./UserDisplay";
+import { addUserToDB } from "./userToDB";
 
 
 export type ApiDataType = {
@@ -30,30 +30,7 @@ export default function MsalComponent() {
         });
     }
 
-    function addUserToDB() {
-        let userRequest;
-        if (process.env.NODE_ENV === 'development') {
-            userRequest = {
-                id: '2',
-                displayName: 'hejhej'
-            };
-        } else if (apiData && apiData.id && apiData.displayName) {
-            userRequest = {
-                id: apiData.id,
-                displayName: apiData.displayName
-            };
-        }
-    
-        if (userRequest) {
-            console.log(userRequest);
-    
-            axiosInstance.post('users', userRequest)
-                .then(response => console.log(response))
-                .catch(error => console.error('Error adding user to DB:', error.response.data));
-        } else {
-            console.error('invalid apiData:', apiData);
-        }
-    }
+    addUserToDB(apiData, "1");
 
     useEffect(() => {
         if (account) {

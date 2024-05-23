@@ -18,7 +18,6 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode }) => {
                         e.stopPropagation(); // Prevents the node toggle
                         console.log('you clicked:', nodeDatum.id, nodeDatum.name);
                         // add logic for appending the node id to user in cosmos db
-                        
                     }}>
                     ✓
                     </button>

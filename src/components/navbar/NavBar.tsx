@@ -62,9 +62,10 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
             
             <div style={{ backgroundColor: "#D7D2CB", color: 'text.primary' }}>
               <div>
-                <h5 style={{ flexGrow: 1 }}>
-                  Menu
-                </h5>
+              <div className="buttons" style={{ display:'flex', gap: '8px', width: '100%' }}>
+        {mappedItems}
+        <LogOutButton />
+      </div>
                 <button onClick={onCloseHandler}>
                   Close 
                 </button>
