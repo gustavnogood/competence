@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { useMsal, useAccount } from "@azure/msal-react";
 import styles from "./Msal.module.css";
 import { LoginStatus } from "./LoginStatus";
 import { UserDisplay } from "./UserDisplay";
 import { addUserToDB } from "./userToDB";
-
 
 export type ApiDataType = {
     displayName: string;
@@ -12,51 +11,54 @@ export type ApiDataType = {
     nodeId: string;
 }
 
-export default function MsalComponent() {
-    const { instance, accounts, inProgress } = useMsal();
-    const account = useAccount(accounts[0] || {});
-    const [apiData, setApiData] = useState<ApiDataType | null>(null);
-
-    function callMsGraph(accessToken: string) {
-        return fetch("https://graph.microsoft.com/v1.0/me", {
+const callMsGraph = async (accessToken: string) => {
+    try {
+        const response = await fetch("https://graph.microsoft.com/v1.0/me", {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
-            
-        })
-        .then(response => response.json())
-        .catch(error => {
-            console.error("Error calling Microsoft Graph API:", error);
-            throw error;
         });
+        return await response.json();
+    } catch (error) {
+        console.error("Error calling Microsoft Graph API:", error);
+        throw error;
     }
+};
 
-    addUserToDB(apiData, "1");
+export default function MsalComponent() {
+    const { instance, accounts, inProgress } = useMsal();
+    const account = useAccount(accounts[0] || {});
+    const [userData, setUserData] = useState<ApiDataType | null>(null);
 
     useEffect(() => {
-        if (account) {
-            instance.acquireTokenSilent({
-                scopes: ["User.Read"],
-                account: account
-            }).then((response) => {
-                if(response) {
-                    callMsGraph(response.accessToken).then((result: ApiDataType) => setApiData(result));
+        const fetchUserData = async () => {
+            if (account) {
+                try {
+                    const response = await instance.acquireTokenSilent({
+                        scopes: ["User.Read"],
+                        account: account
+                    });
+                    const result = await callMsGraph(response.accessToken);
+                    setUserData(result);
+                    addUserToDB(result, "1"); // Only call this once user data is fetched
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
                 }
-            });
-        }
+            }
+        };
+        fetchUserData();
     }, [account, instance]);
-
 
     if (accounts.length > 0) {
         return (
             <div className={styles.Container}>
-            <LoginStatus inProgress={inProgress} accounts={accounts} />
-            <UserDisplay apiData={apiData} addUserToDB={addUserToDB} />
-        </div>
+                <LoginStatus inProgress={inProgress} accounts={accounts} />
+                <UserDisplay apiData={userData} />
+            </div>
         );
     } else if (inProgress === "login") {
-        return <span>Login is currently in progress!</span>
+        return <span>Login is currently in progress!</span>;
     } else {
-        return <span>There are currently no users signed in!</span>
+        return <span>There are currently no users signed in!</span>;
     }
 }
