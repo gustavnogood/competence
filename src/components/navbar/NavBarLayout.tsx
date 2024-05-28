@@ -12,7 +12,7 @@ export const NavBarLayout: React.FC = () => {
             <div className={styles.headerContent}>
                 <div className={styles.logoContainer}>
                     <img src={logoImg} alt="logo" width="54" height="54" />
-                    <h5>Competence</h5>
+                    <h5>Competence!</h5>
                 </div>
                 <NavBar isSmall={isSmall} />
             </div>
