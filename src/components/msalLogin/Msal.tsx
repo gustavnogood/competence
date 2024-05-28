@@ -18,6 +18,9 @@ const callMsGraph = async (accessToken: string) => {
                 Authorization: `Bearer ${accessToken}`
             }
         });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
         return await response.json();
     } catch (error) {
         console.error("Error calling Microsoft Graph API:", error);
