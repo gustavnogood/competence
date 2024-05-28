@@ -20,21 +20,17 @@ const RoadmapList: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const { treeWrapperRef, translate } = useResizeHandler();
 
+    // Fetch data when component mounts
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
                 const data = await fetchRoadmaps();
                 setData(data);
-                setError(null); 
+                setError(null);
                 setDataLoaded(true);
             } catch (error) {
-                if (error instanceof Error) {
-                    setError(error.message);
-                } else {
-                    setError('An unknown error occurred');
-                }
-            
+                setError(error instanceof Error ? error.message : 'An unknown error occurred');
             } finally {
                 setLoading(false);
             }
@@ -43,6 +39,7 @@ const RoadmapList: React.FC = () => {
         fetchData();
     }, []);
 
+    // Handle node drop event
     const handleNodeDrop = (item: { id: string }, targetNode: MyTreeNodeDatum) => {
         console.log(`Dropped node ${item.id} on node ${targetNode.id}`);
         // Implement the logic to handle the drop, e.g., updating the state or making an API call.
