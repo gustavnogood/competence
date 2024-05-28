@@ -1,6 +1,6 @@
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react"
 import LoginPage from "./Login"
-import MsalComponent from "../components/msal/Msal"
+import MsalComponent from "../components/msalLogin/Msal"
 export function Profile() {
   
     return (

@@ -9,6 +9,7 @@ import { addUserToDB } from "./userToDB";
 export type ApiDataType = {
     displayName: string;
     id: string;
+    nodeId: string;
 }
 
 export default function MsalComponent() {
