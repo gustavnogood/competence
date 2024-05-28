@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LogOutButton from "./LogOutButton";
-import styles from './Navbar.module.css';
+import styles from './NavBar.module.css';
 
 export type NavigationProps = {
   isSmall: boolean;
