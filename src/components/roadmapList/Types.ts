@@ -1,3 +1,5 @@
+import { RawNodeDatum } from "react-d3-tree";
+
 export interface Roadmap {
     id: string;
     name: string;
@@ -22,4 +24,22 @@ export interface Node {
     id: string;
     name: string;
     children?: Node[];
+}
+
+export interface MyTreeNodeDatum extends RawNodeDatum {
+    depth: number;
+    name: string;
+    id: string;
+}
+
+export interface RoadmapListProps {
+    userData?: {
+        displayName: string;
+        id: string;
+    } | null;
+}
+
+export interface DragItem {
+    id: string;
+    type: string;
 }

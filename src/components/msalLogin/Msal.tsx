@@ -4,6 +4,7 @@ import styles from "./Msal.module.css";
 import { LoginStatus } from "./LoginStatus";
 import { UserDisplay } from "./UserDisplay";
 import { addUserToDB } from "./userToDB";
+import RoadmapList from "../roadmapList/RoadmapTree"; // Import RoadmapList
 
 export type ApiDataType = {
     displayName: string;
@@ -57,6 +58,7 @@ export default function MsalComponent() {
             <div className={styles.Container}>
                 <LoginStatus inProgress={inProgress} accounts={accounts} />
                 <UserDisplay apiData={userData} />
+                <RoadmapList userData={userData} /> {/* Pass userData to RoadmapList */}
             </div>
         );
     } else if (inProgress === "login") {

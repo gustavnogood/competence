@@ -4,23 +4,15 @@ import Loading from "../loading/Loading";
 import { fetchRoadmaps } from "./api";
 import TreeNode from "./TreeNode";
 import { useResizeHandler } from "./useResizeHandler";
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { RoadmapListProps, MyTreeNodeDatum } from "./Types";
 
-export interface MyTreeNodeDatum extends RawNodeDatum {
-    depth: number;
-    name: string;
-    id: string;
-}
-
-const RoadmapList: React.FC = () => {
+const RoadmapList: React.FC<RoadmapListProps> = ({ userData }) => {
     const [data, setData] = useState<RawNodeDatum[] | undefined>();
     const [, setDataLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const { treeWrapperRef, translate } = useResizeHandler();
 
-    // Fetch data when component mounts
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -30,7 +22,11 @@ const RoadmapList: React.FC = () => {
                 setError(null);
                 setDataLoaded(true);
             } catch (error) {
-                setError(error instanceof Error ? error.message : 'An unknown error occurred');
+                if (error instanceof Error) {
+                    setError(error.message);
+                } else {
+                    setError('An unknown error occurred');
+                }
             } finally {
                 setLoading(false);
             }
@@ -39,47 +35,45 @@ const RoadmapList: React.FC = () => {
         fetchData();
     }, []);
 
-    // Handle node drop event
     const handleNodeDrop = (item: { id: string }, targetNode: MyTreeNodeDatum) => {
         console.log(`Dropped node ${item.id} on node ${targetNode.id}`);
         // Implement the logic to handle the drop, e.g., updating the state or making an API call.
     };
 
     return (
-        <DndProvider backend={HTML5Backend}>
-            <div className="RoadmapTree">
-                {loading ? (
-                    <Loading />
-                ) : error ? (
-                    <div>Error: {error}</div>
-                ) : (
-                    <div ref={treeWrapperRef} id="treeWrapper" style={{ width: '100%', height: '70vh' }}>
-                        <Tree
-                            data={data}
-                            translate={translate}
-                            orientation="vertical"
-                            pathFunc={'step'}
-                            initialDepth={0}
-                            transitionDuration={500}
-                            rootNodeClassName="node__root"
-                            branchNodeClassName="node__branch"
-                            leafNodeClassName="node__leaf"
-                            renderCustomNodeElement={(rd3tNodeProps) => {
-                                const nodeDatum = rd3tNodeProps.nodeDatum as unknown as MyTreeNodeDatum;
-                                const toggleNode = rd3tNodeProps.toggleNode;
-                                return (
-                                    <TreeNode
-                                        nodeDatum={nodeDatum}
-                                        toggleNode={toggleNode}
-                                        onNodeDrop={handleNodeDrop}
-                                    />
-                                );
-                            }}
-                        />
-                    </div>
-                )}
-            </div>
-        </DndProvider>
+        <div className="RoadmapTree">
+            {loading ? (
+                <Loading />
+            ) : error ? (
+                <div>Error: {error}</div>
+            ) : (
+                <div ref={treeWrapperRef} id="treeWrapper" style={{ width: '100%', height: '70vh' }}>
+                    <Tree
+                        data={data}
+                        translate={translate}
+                        orientation="vertical"
+                        pathFunc={'step'}
+                        initialDepth={0}
+                        transitionDuration={500}
+                        rootNodeClassName="node__root"
+                        branchNodeClassName="node__branch"
+                        leafNodeClassName="node__leaf"
+                        renderCustomNodeElement={(rd3tNodeProps) => {
+                            const nodeDatum = rd3tNodeProps.nodeDatum as unknown as MyTreeNodeDatum;
+                            const toggleNode = rd3tNodeProps.toggleNode;
+                            return (
+                                <TreeNode
+                                    nodeDatum={nodeDatum}
+                                    toggleNode={toggleNode}
+                                    onNodeDrop={handleNodeDrop}
+                                    userData={userData} // Pass userData to TreeNode
+                                />
+                            );
+                        }}
+                    />
+                </div>
+            )}
+        </div>
     );
 };
 
