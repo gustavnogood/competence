@@ -42,7 +42,7 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
   return (
     <>
       <nav className={styles.navbar}>
-        <div className={styles.buttons} style={{ display: isSmall ? 'none' : 'flex' }}>
+        <div className={styles.navButton} style={{ display: isSmall ? 'none' : 'flex' }}>
           {mappedItems}
           <LogOutButton />
         </div>
@@ -53,7 +53,7 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
           {open && (
             <div className={styles.menuContent}>
               <div className={styles.menuBackground}>
-                <div className={styles.buttons}>
+                <div className={styles.navButton}>
                   {mappedItems}
                   <LogOutButton />
                 </div>

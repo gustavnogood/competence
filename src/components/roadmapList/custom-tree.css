@@ -1,16 +1,16 @@
 .node__root circle {
   fill: red;
-  cursor: move;
+  cursor: pointer
 }
 
 .node__branch circle {
   fill: yellow;
-  cursor: move;
+  cursor: pointer;
 }
 
 .node__leaf circle {
   fill: green;
-  cursor: move;
+  cursor: pointer;
 }
 
 .link__to-leaf {
