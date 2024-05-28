@@ -2,7 +2,7 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { logoImg } from '../../assets/index';
 import { NavBar } from './NavBar';
-import styles from './Navbar.module.css';
+import styles from './NavBar.module.css';
 
 export const NavBarLayout: React.FC = () => {
     const isSmall = useMediaQuery({ query: '(max-width: 600px)' });
