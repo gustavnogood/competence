@@ -42,7 +42,7 @@ const RoadmapList: React.FC<RoadmapListProps> = ({ userData }) => {
             ) : error ? (
                 <div>Error: {error}</div>
             ) : (
-                <div ref={treeWrapperRef} id="treeWrapper" style={{ width: '100%', height: '100%' }}>
+                <div ref={treeWrapperRef} id="treeWrapper" style={{ width: '100%', height: '100vh' }}>
                     <Tree
                         data={data}
                         translate={translate}
