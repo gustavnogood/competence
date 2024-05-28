@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMsal } from "@azure/msal-react";
-import styles from './Navbar.module.css';
+import styles from './NavBar.module.css';
 
 const LogOutButton: React.FC = () => {
     const { instance } = useMsal();
