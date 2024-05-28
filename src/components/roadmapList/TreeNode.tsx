@@ -4,6 +4,7 @@ import { MyTreeNodeDatum } from "./RoadmapTree";
 
 interface DragItem {
     id: string;
+    type: string;
 }
 
 interface TreeNodeProps {
@@ -17,21 +18,23 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, onNodeDrop }
 
     const [, drop] = useDrop({
         accept: "NODE",
-        drop: (item: DragItem) => onNodeDrop(item, nodeDatum),
+        drop: (item: DragItem) => {
+            onNodeDrop(item, nodeDatum);
+        }
     });
 
     const [{ isDragging }, drag] = useDrag({
         type: "NODE",
-        item: { id: nodeDatum.id },
+        item: { id: nodeDatum.id, type: "NODE" },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
-        }),
+        })
     });
 
     drag(drop(ref));
 
     return (
-        <g ref={ref} onClick={() => toggleNode()} style={{ opacity: isDragging ? 0.5 : 1 }}>
+        <g ref={ref} onClick={() => toggleNode()} style={{ opacity: isDragging ? 0.5 : 1, cursor: 'move' }}>
             <rect width={100} height={50} stroke="black" fill="white" />
             <foreignObject x="0" y="0" width="100" height="50">
                 <div style={{ width: '100px', height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2px' }}>
