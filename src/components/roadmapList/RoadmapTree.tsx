@@ -3,7 +3,7 @@ import { Tree, RawNodeDatum } from 'react-d3-tree';
 import Loading from "../loading/Loading";
 import { fetchRoadmaps } from "./api";
 import TreeNode from "./TreeNode";
-import { useResizeHandler } from "./useResizeHandler";
+import { useCenteredTree } from "./treeHelpers";
 import { RoadmapListProps, MyTreeNodeDatum } from "./Types";
 
 const RoadmapList: React.FC<RoadmapListProps> = ({ userData }) => {
@@ -11,7 +11,7 @@ const RoadmapList: React.FC<RoadmapListProps> = ({ userData }) => {
     const [, setDataLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const { treeWrapperRef, translate } = useResizeHandler();
+    const [translate, treeWrapperRef] = useCenteredTree();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,7 +42,7 @@ const RoadmapList: React.FC<RoadmapListProps> = ({ userData }) => {
             ) : error ? (
                 <div>Error: {error}</div>
             ) : (
-                <div ref={treeWrapperRef} id="treeWrapper" style={{ width: '100%', height: '70vh' }}>
+                <div ref={treeWrapperRef} id="treeWrapper" style={{ width: '100%', height: '100%' }}>
                     <Tree
                         data={data}
                         translate={translate}
