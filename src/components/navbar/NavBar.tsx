@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../App.css";
 import LogOutButton from "./LogOutButton";
-
+import styles from './Navbar.module.css'; // Using CSS modules for scoped styles
 
 export type NavigationProps = {
   isSmall: boolean;
@@ -32,49 +32,40 @@ export const NavBar: React.FC<NavigationProps> = ({ isSmall }) => {
   const onOpenHandler = () => setOpen(true);
   const onCloseHandler = () => setOpen(false);
 
-  const mappedItems = (
-    navigationItems.map(({ text, href }) => { 
-      return (
-<a key={href} href={href} onClick={onCloseHandler} style={{ display: 'block', width: isSmall ? '100%' : 'auto' }}>
-  <button>
-    {text}
-  </button>
-</a>
-      );
-    })
-  );
+  const mappedItems = navigationItems.map(({ text, href }) => (
+    <a key={href} href={href} onClick={onCloseHandler} className={styles.navItem}>
+      <button className={styles.navButton}>
+        {text}
+      </button>
+    </a>
+  ));
 
   return (
     <>
-      
-      {/* Replace Hidden with a custom component or CSS */}
-      <div className="buttons" style={{ display: isSmall ? 'none' : 'flex', gap: '8px', width: '100%' }}>
-        {mappedItems}
-        <LogOutButton />
-      </div>
-      
-      <div className="smallMenu" style={{ display: isSmall ? 'block' : 'none' }}>
-        <button onClick={onOpenHandler}>
-          Menu 
-        </button>
-        {open && (
-          <div>
-            
-            <div style={{ backgroundColor: "#D7D2CB", color: 'text.primary' }}>
-              <div>
-              <div className="buttons" style={{ display:'flex', gap: '8px', width: '100%' }}>
-        {mappedItems}
-        <LogOutButton />
-      </div>
-                <button onClick={onCloseHandler}>
+      <nav className={styles.navbar}>
+        <div className={styles.buttons} style={{ display: isSmall ? 'none' : 'flex' }}>
+          {mappedItems}
+          <LogOutButton />
+        </div>
+        <div className={styles.smallMenu} style={{ display: isSmall ? 'block' : 'none' }}>
+          <button onClick={onOpenHandler} className={styles.menuButton}>
+            Menu 
+          </button>
+          {open && (
+            <div className={styles.menuContent}>
+              <div className={styles.menuBackground}>
+                <div className={styles.buttons}>
+                  {mappedItems}
+                  <LogOutButton />
+                </div>
+                <button onClick={onCloseHandler} className={styles.closeButton}>
                   Close 
                 </button>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </nav>
     </>
   );
-
 }

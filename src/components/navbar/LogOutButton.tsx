@@ -1,5 +1,8 @@
+import React from 'react';
 import { useMsal } from "@azure/msal-react";
-const LogOutButton = () => {
+import styles from './Navbar.module.css';
+
+const LogOutButton: React.FC = () => {
     const { instance } = useMsal();
 
     const logout = () => {
@@ -7,7 +10,7 @@ const LogOutButton = () => {
     };
 
     return (
-        <button onClick={logout}>
+        <button onClick={logout} className={styles.logoutButton}>
             Log Out
         </button>
     );
