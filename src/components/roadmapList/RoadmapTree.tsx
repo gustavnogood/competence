@@ -35,11 +35,6 @@ const RoadmapList: React.FC<RoadmapListProps> = ({ userData }) => {
         fetchData();
     }, []);
 
-    const handleNodeDrop = (item: { id: string }, targetNode: MyTreeNodeDatum) => {
-        console.log(`Dropped node ${item.id} on node ${targetNode.id}`);
-        // Implement the logic to handle the drop, e.g., updating the state or making an API call.
-    };
-
     return (
         <div className="RoadmapTree">
             {loading ? (
@@ -65,7 +60,6 @@ const RoadmapList: React.FC<RoadmapListProps> = ({ userData }) => {
                                 <TreeNode
                                     nodeDatum={nodeDatum}
                                     toggleNode={toggleNode}
-                                    onNodeDrop={handleNodeDrop}
                                     userData={userData} // Pass userData to TreeNode
                                 />
                             );
