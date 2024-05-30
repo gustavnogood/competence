@@ -1,5 +1,5 @@
 import axiosInstance from '../../axios/axiosInstance';
-import { ApiDataType } from './Msal';
+import { ApiDataType } from '../roadmapList/Types';
 
 export function addUserToDB(apiData: ApiDataType | null, nodeId: string) {
     if (!apiData || !apiData.id || !apiData.displayName) {

@@ -43,3 +43,9 @@ export interface DragItem {
     id: string;
     type: string;
 }
+
+export interface ApiDataType {
+    displayName: string;
+    id: string;
+    nodeId?: string;
+}

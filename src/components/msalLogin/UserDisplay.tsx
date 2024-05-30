@@ -1,5 +1,5 @@
 
-import { ApiDataType } from './Msal';
+import { ApiDataType } from '../roadmapList/Types';
 import { addUserToDB } from './userToDB';
 
 type UserDisplayProps = {

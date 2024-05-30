@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { useAppSelector } from "../../hooks";
 import { Tree, RawNodeDatum } from 'react-d3-tree';
 import Loading from "../loading/Loading";
 import { fetchRoadmaps } from "./api";
 import TreeNode from "./TreeNode";
 import { useCenteredTree } from "./treeHelpers";
-import { RoadmapListProps, MyTreeNodeDatum } from "./Types";
+import { MyTreeNodeDatum } from "./Types";
+import { RootState } from "../../store";
 
-const RoadmapList: React.FC<RoadmapListProps> = ({ userData }) => {
+const RoadmapList: React.FC = () => {
     const [data, setData] = useState<RawNodeDatum[] | undefined>();
     const [, setDataLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [translate, treeWrapperRef] = useCenteredTree();
+    const userData = useAppSelector((state: RootState) => state.user.userData);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,7 +45,7 @@ const RoadmapList: React.FC<RoadmapListProps> = ({ userData }) => {
             ) : error ? (
                 <div>Error: {error}</div>
             ) : (
-                <div ref={treeWrapperRef} id="treeWrapper" style={{ width: '100%', height: '100vh' }}>
+                <div ref={treeWrapperRef} id="treeWrapper" style={{ width: '100%', height: '70vh' }}>
                     <Tree
                         data={data}
                         translate={translate}

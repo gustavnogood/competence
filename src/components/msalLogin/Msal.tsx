@@ -1,16 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useMsal, useAccount } from "@azure/msal-react";
+import { useAppDispatch, useAppSelector } from '../../hooks'; // Use custom hooks
+import { setUser } from '../../actions/userActions';
 import styles from "./Msal.module.css";
 import { LoginStatus } from "./LoginStatus";
 import { UserDisplay } from "./UserDisplay";
 import { addUserToDB } from "./userToDB";
-import RoadmapList from "../roadmapList/RoadmapTree"; // Import RoadmapList
-
-export type ApiDataType = {
-    displayName: string;
-    id: string;
-    nodeId: string;
-}
+import RoadmapList from "../roadmapList/RoadmapTree";
+import { RootState } from '../../store';
 
 const callMsGraph = async (accessToken: string) => {
     try {
@@ -32,7 +29,8 @@ const callMsGraph = async (accessToken: string) => {
 export default function MsalComponent() {
     const { instance, accounts, inProgress } = useMsal();
     const account = useAccount(accounts[0] || {});
-    const [userData, setUserData] = useState<ApiDataType | null>(null);
+    const dispatch = useAppDispatch();
+    const userData = useAppSelector((state: RootState) => state.user.userData);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -43,7 +41,8 @@ export default function MsalComponent() {
                         account: account
                     });
                     const result = await callMsGraph(response.accessToken);
-                    setUserData(result);
+                    console.log("Fetched user data:", result); // Debugging line
+                    dispatch(setUser(result));
                     addUserToDB(result, "1"); // Only call this once user data is fetched
                 } catch (error) {
                     console.error("Error fetching user data:", error);
@@ -51,14 +50,14 @@ export default function MsalComponent() {
             }
         };
         fetchUserData();
-    }, [account, instance]);
+    }, [account, instance, dispatch]);
 
     if (accounts.length > 0) {
         return (
             <div className={styles.Container}>
                 <LoginStatus inProgress={inProgress} accounts={accounts} />
                 <UserDisplay apiData={userData} />
-                <RoadmapList userData={userData} /> {/* Pass userData to RoadmapList */}
+                <RoadmapList />
             </div>
         );
     } else if (inProgress === "login") {
