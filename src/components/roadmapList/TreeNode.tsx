@@ -1,6 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import axios from 'axios';
 import { MyTreeNodeDatum } from "./Types";
+import { useMsal, useAccount } from "@azure/msal-react";
+import { callMsGraph } from "../../utils/callMsal"; // Adjust path as needed
 
 interface TreeNodeProps {
     nodeDatum: MyTreeNodeDatum;
@@ -8,23 +10,45 @@ interface TreeNodeProps {
     userData?: {
         displayName: string;
         id: string;
+        nodeId?: string;
     } | null;
 }
 
 const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) => {
     const ref = useRef<SVGGElement>(null);
+    const { instance, accounts } = useMsal();
+    const account = useAccount(accounts[0] || {});
+    const [userDataState, setUserDataState] = useState<{ displayName: string; id: string } | null>(null);
 
-    // Function to add the node ID to the user in Cosmos DB
+    useEffect(() => {
+        const fetchUserData = async () => {
+            if (account) {
+                try {
+                    const response = await instance.acquireTokenSilent({
+                        scopes: ["User.Read"],
+                        account: account
+                    });
+                    const result = await callMsGraph(response.accessToken);
+                    setUserDataState(result);
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                }
+            }
+        };
+        fetchUserData();
+    }, [account, instance]);
+
     const addNodeToUser = async (nodeId: string) => {
-        if (!userData) {
+        const currentUserData = userData || userDataState;
+        if (!currentUserData) {
             console.error('User data is not available');
             return;
         }
 
         try {
             const response = await axios.post('/users', {
-                id: userData.id,
-                displayName: userData.displayName,
+                id: currentUserData.id,
+                displayName: currentUserData.displayName,
                 roadmapId: nodeId
             });
             console.log('User updated successfully:', response.data);
@@ -55,4 +79,3 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
 };
 
 export default TreeNode;
-

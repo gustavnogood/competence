@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useMsal, useAccount } from "@azure/msal-react";
-import { useAppDispatch, useAppSelector } from '../../hooks'; // Use custom hooks
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setUser } from '../../actions/userActions';
 import styles from "./Msal.module.css";
 import { LoginStatus } from "./LoginStatus";
@@ -41,9 +41,11 @@ export default function MsalComponent() {
                         account: account
                     });
                     const result = await callMsGraph(response.accessToken);
-                    console.log("Fetched user data:", result); // Debugging line
-                    dispatch(setUser(result));
-                    addUserToDB(result, "1"); // Only call this once user data is fetched
+                    console.log("Fetched user data:", result);
+
+                    const nodeId = "some-node-id"; // Replace with actual logic to get nodeId
+                    dispatch(setUser({ ...result, nodeId }));
+                    addUserToDB({ ...result, nodeId }, "1");
                 } catch (error) {
                     console.error("Error fetching user data:", error);
                 }

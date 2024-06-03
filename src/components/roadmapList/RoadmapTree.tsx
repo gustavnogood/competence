@@ -63,7 +63,7 @@ const RoadmapList: React.FC = () => {
                                 <TreeNode
                                     nodeDatum={nodeDatum}
                                     toggleNode={toggleNode}
-                                    userData={userData} // Pass userData to TreeNode
+                                    userData={userData} // Ensure userData is passed here
                                 />
                             );
                         }}
