@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from 'axios';
 import { MyTreeNodeDatum } from "./Types";
 import { useMsal, useAccount } from "@azure/msal-react";
-import { callMsGraph } from "../../utils/callMsal"; // Adjust path as needed
+import { callMsGraph } from "../../utils/callMsGraph"; // Adjust path as needed
 
 interface TreeNodeProps {
     nodeDatum: MyTreeNodeDatum;
