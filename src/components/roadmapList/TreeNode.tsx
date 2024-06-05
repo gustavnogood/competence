@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
-import axios from 'axios';
 import { MyTreeNodeDatum } from "./Types";
 import { useMsal, useAccount } from "@azure/msal-react";
-import { callMsGraph } from "../../utils/callMsGraph"; // Adjust path as needed
+import { callMsGraph } from "../../utils/callMsGraph";
+import axiosInstance from "../../axios/axiosInstance";
 
 interface TreeNodeProps {
     nodeDatum: MyTreeNodeDatum;
@@ -46,7 +46,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
         }
 
         try {
-            const response = await axios.post('/api/users', {
+            const response = await axiosInstance.post('/users', {
                 Id: currentUserData.id,
                 DisplayName: currentUserData.displayName,
                 RoadmapId: nodeId
