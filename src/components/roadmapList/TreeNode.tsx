@@ -47,9 +47,9 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
 
         try {
             const response = await axios.post('/users', {
-                id: currentUserData.id,
-                displayName: currentUserData.displayName,
-                roadmapId: nodeId
+                Id: currentUserData.id,
+                DisplayName: currentUserData.displayName,
+                RoadmapId: nodeId
             });
             console.log('User updated successfully:', response.data);
         } catch (error) {
