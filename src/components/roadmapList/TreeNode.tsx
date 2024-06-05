@@ -46,7 +46,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
         }
 
         try {
-            const response = await axios.post('/users', {
+            const response = await axios.post('/api/users', {
                 Id: currentUserData.id,
                 DisplayName: currentUserData.displayName,
                 RoadmapId: nodeId
