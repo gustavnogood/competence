@@ -44,7 +44,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
             console.error('User data is not available');
             return;
         }
-
+    
         try {
             const response = await axiosInstance.post('/users', {
                 Id: currentUserData.id,
@@ -52,8 +52,14 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
                 RoadmapId: nodeId
             });
             console.log('User updated successfully:', response.data);
-        } catch (error) {
-            console.error('Error updating user:', error);
+        } catch (error: any) {
+            if (error.response) {
+                console.error('Error updating user:', error.response.data);
+            } else if (error.request) {
+                console.error('No response received:', error.request);
+            } else {
+                console.error('Error in setting up request:', error.message);
+            }
         }
     };
 
@@ -67,7 +73,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
                         onClick={(e) => {
                             e.stopPropagation();
                             console.log('you clicked:', nodeDatum.id, nodeDatum.name);
-                            addNodeToUser(nodeDatum.id); // Call the function to add node ID to the user
+                            addNodeToUser(nodeDatum.id); 
                         }}
                     >
                         ✓
