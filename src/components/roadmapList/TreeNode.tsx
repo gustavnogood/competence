@@ -7,7 +7,7 @@ import { debounce } from 'lodash';
 
 interface UserData {
     displayName: string;
-    id: string; 
+    id: string; // This will be the TenantId
     nodeId?: string;
 }
 
@@ -51,7 +51,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
 
         try {
             const response = await axiosInstance.post('/users', {
-                id: "1", 
+                id: nodeId, // Use the nodeId as the user id for this example
                 TenantId: currentUserData.id,
                 DisplayName: currentUserData.displayName,
                 RoadmapId: nodeId
