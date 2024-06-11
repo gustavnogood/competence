@@ -1,8 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { MyTreeNodeDatum } from "./Types";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { callMsGraph } from "../../utils/callMsGraph";
 import axiosInstance from "../../axios/axiosInstance";
+import { debounce } from 'lodash'
 
 interface TreeNodeProps {
     nodeDatum: MyTreeNodeDatum;
@@ -20,34 +21,35 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
     const account = useAccount(accounts[0] || {});
     const [userDataState, setUserDataState] = useState<{ displayName: string; id: string } | null>(null);
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            if (account) {
-                try {
-                    const response = await instance.acquireTokenSilent({
-                        scopes: ["User.Read"],
-                        account: account
-                    });
-                    const result = await callMsGraph(response.accessToken);
-                    setUserDataState(result);
-                } catch (error) {
-                    console.error("Error fetching user data:", error);
-                }
+    const fetchUserData = useCallback(async () => {
+        if (account) {
+            try {
+                const response = await instance.acquireTokenSilent({
+                    scopes: ["User.Read"],
+                    account: account
+                });
+                const result = await callMsGraph(response.accessToken);
+                setUserDataState(result);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
             }
-        };
-        fetchUserData();
+        }
     }, [account, instance]);
 
-    const addNodeToUser = async (nodeId: string) => {
+    useEffect(() => {
+        fetchUserData();
+    }, [fetchUserData]);
+
+    const addNodeToUser = useCallback(debounce(async (nodeId: string) => {
         const currentUserData = userData || userDataState;
         if (!currentUserData) {
             console.error('User data is not available');
             return;
         }
-    
+
         try {
             const response = await axiosInstance.post('/users', {
-                Id: currentUserData.id,
+                TenantId: currentUserData.id, // Adjusted to match TenantId if necessary
                 DisplayName: currentUserData.displayName,
                 RoadmapId: nodeId
             });
@@ -61,7 +63,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
                 console.error('Error in setting up request:', error.message);
             }
         }
-    };
+    }, 300), [userData, userDataState]); // Adjust the debounce time as necessary
 
     return (
         <g ref={ref} onClick={() => toggleNode()} style={{ cursor: 'pointer' }}>
@@ -73,7 +75,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
                         onClick={(e) => {
                             e.stopPropagation();
                             console.log('you clicked:', nodeDatum.id, nodeDatum.name);
-                            addNodeToUser(nodeDatum.id); 
+                            addNodeToUser(nodeDatum.id);
                         }}
                     >
                         ✓
