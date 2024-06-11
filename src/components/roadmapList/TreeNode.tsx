@@ -3,14 +3,14 @@ import { MyTreeNodeDatum } from "./Types";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { callMsGraph } from "../../utils/callMsGraph";
 import axiosInstance from "../../axios/axiosInstance";
-import { debounce } from 'lodash'
+import { debounce } from 'lodash';
 
 interface TreeNodeProps {
     nodeDatum: MyTreeNodeDatum;
     toggleNode: () => void;
     userData?: {
         displayName: string;
-        id: string;
+        id: string; // This should be TenantId
         nodeId?: string;
     } | null;
 }
@@ -49,7 +49,8 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
 
         try {
             const response = await axiosInstance.post('/users', {
-                TenantId: currentUserData.id, // Adjusted to match TenantId if necessary
+                id: "1", // This should be set by your backend logic
+                TenantId: currentUserData.id,
                 DisplayName: currentUserData.displayName,
                 RoadmapId: nodeId
             });
