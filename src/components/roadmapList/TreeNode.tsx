@@ -5,21 +5,23 @@ import { callMsGraph } from "../../utils/callMsGraph";
 import axiosInstance from "../../axios/axiosInstance";
 import { debounce } from 'lodash';
 
+interface UserData {
+    displayName: string;
+    id: string; 
+    nodeId?: string;
+}
+
 interface TreeNodeProps {
     nodeDatum: MyTreeNodeDatum;
     toggleNode: () => void;
-    userData?: {
-        displayName: string;
-        id: string; // This should be TenantId
-        nodeId?: string;
-    } | null;
+    userData?: UserData | null;
 }
 
 const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) => {
     const ref = useRef<SVGGElement>(null);
     const { instance, accounts } = useMsal();
     const account = useAccount(accounts[0] || {});
-    const [userDataState, setUserDataState] = useState<{ displayName: string; id: string } | null>(null);
+    const [userDataState, setUserDataState] = useState<UserData | null>(null);
 
     const fetchUserData = useCallback(async () => {
         if (account) {
@@ -29,7 +31,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
                     account: account
                 });
                 const result = await callMsGraph(response.accessToken);
-                setUserDataState(result);
+                setUserDataState({ displayName: result.displayName, id: result.id });
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
@@ -49,7 +51,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ nodeDatum, toggleNode, userData }) 
 
         try {
             const response = await axiosInstance.post('/users', {
-                id: "1", // This should be set by your backend logic
+                id: "1", 
                 TenantId: currentUserData.id,
                 DisplayName: currentUserData.displayName,
                 RoadmapId: nodeId
