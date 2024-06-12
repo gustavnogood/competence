@@ -9,7 +9,7 @@ import { LogLevel } from "@azure/msal-browser";
 export const MsalConfig = {
     auth: {
         clientId: "8dd0c61f-09c3-448b-81a2-26a25935ab3b",
-        authority: "https://login.microsoftonline.com/e719b1aa-cadf-4f70-a3fd-6a97e57b4e8b/oauth2/v2.0/authorize", //har testat att byta och ser om det är problemet
+        authority: "https://login.microsoftonline.com/e719b1aa-cadf-4f70-a3fd-6a97e57b4e8b/oauth2/v2.0/authorize",
         redirectUri: "/",
         postLogoutRedirectUri: "/login",
     },
@@ -26,12 +26,6 @@ export const MsalConfig = {
                 switch (level) {
                     case LogLevel.Error:
                         console.error(message);
-                        return;
-                    case LogLevel.Info:
-                        console.info(message);
-                        return;
-                    case LogLevel.Verbose:
-                        console.debug(message);
                         return;
                     case LogLevel.Warning:
                         console.warn(message);
