@@ -6,7 +6,6 @@ import styles from "./Msal.module.css";
 import { LoginStatus } from "./LoginStatus";
 import { UserDisplay } from "./UserDisplay";
 import { addUserToDB } from "./userToDB";
-import RoadmapList from "../roadmapList/RoadmapTree";
 import { RootState } from '../../store';
 
 const callMsGraph = async (accessToken: string) => {
@@ -59,7 +58,6 @@ export default function MsalComponent() {
             <div className={styles.Container}>
                 <LoginStatus inProgress={inProgress} accounts={accounts} />
                 <UserDisplay apiData={userData} />
-                <RoadmapList />
             </div>
         );
     } else if (inProgress === "login") {
